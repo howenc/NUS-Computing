@@ -1,0 +1,106 @@
+ function biggie_size(combo)
+{
+    return combo + 4;
+}
+
+function unbiggie_size(combo)
+{
+    return combo - 4;
+}
+
+function is_biggie_size(combo)
+{
+    if(combo > 4 && combo < 9)
+    {
+        return true;
+    }
+        else
+    {
+        return false;
+    }
+}
+
+function is_valid(combo)
+{
+    if(combo > 0 && combo < 9)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+function combo_price(combo)
+{
+    
+    if(is_biggie_size(combo))
+    {
+        return (combo - 4) * 1.17 + 0.50;
+    }
+    else
+    {
+        return combo * 1.17;
+    }
+}
+
+function combo_price1(combo)
+{
+    return is_biggie_size ? unbiggie_size(combo) * 1.17 +0.5 : combo * 1.17; 
+}
+
+function empty_order()
+{
+    return 0;
+}
+
+function add_to_order(previous_order,new_combo)
+{
+    return previous_order * 10 + new_combo;
+}
+
+function last_combo(combo)
+{
+    return combo % 10;
+}
+
+function other_combo(combo)
+{
+    const y = combo % 10;
+    return (combo - y) / 10;
+}
+
+function other_combo1(combo)
+{
+    return (combo - last_combo(combo)) / 10;
+}
+
+function other_combo2(combo)
+{
+    return math_trunc(combo/10);
+}
+
+function other_combo3(combo)
+{
+    return math_floor(combo/10);
+}
+
+function combo_at(combo,order_index)
+{
+    if(order_index > 0)
+    {
+    return combo_at(other_combo(combo),order_index-1);
+    }
+    else
+    {
+    return last_combo(combo);
+    }
+}
+
+function combo_at1(combo,order_index)
+{    
+    return order_index > 0
+        ? combo_at(other_combo(combo),order_index-1)
+        : last_combo(combo);
+}
