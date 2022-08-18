@@ -22,14 +22,15 @@ function do_x_times(rune,x)
     return beside_frac(1-1/x, quarter_turn_right(
            beside_frac(1-1/x, quarter_turn_right(
            beside_frac(1-1/x, quarter_turn_right(
-           beside_frac(1-1/x, quarter_turn_right(rune)
-           ,stackn(x-1,paw)))
-           ,stackn(x-1,paw)))
-           ,stackn(x-1,paw)))
-           ,stackn(x,paw));
+           beside_frac(1-1/x, quarter_turn_right(
+           make_cross(rune))
+           ,stackn(x-1,rune)))
+           ,stackn(x-1,rune)))
+           ,stackn(x-1,rune)))
+           ,stackn(x,rune));
 }
 //show(beside_frac(1 - 1/n, make_cross(paw),stackn(n-2,paw)));
 
 //show(qtr_turn_add(start(paw,5),5));
 
-show(do_x_times(make_cross(paw),5));
+show(do_x_times(paw,5));
