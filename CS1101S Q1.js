@@ -34,7 +34,7 @@ function persian(rune,x)
 
 //show(qtr_turn_add(start(paw,5),5));
 
-show(do_x_times(paw,5));
-show(quarter_turn_right(do_x_times(paw,5)));
-show(turn_upside_down(do_x_times(paw,5)));
-show(quarter_turn_left(do_x_times(paw,5)));
+show(persian(paw,5));
+show(quarter_turn_right(persian(paw,5)));
+show(turn_upside_down(persian(paw,5)));
+show(quarter_turn_left(persian(paw,5)));
