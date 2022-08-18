@@ -25,14 +25,14 @@ function turn_upside_down(rune)
 }
 function do_x_times(rune,x)
 {
-    return beside_frac(4/5, quarter_turn_right(
-           beside_frac(((4/5)*(4/5)), quarter_turn_right(
+    return beside_frac(1-1/x, quarter_turn_right(
+           beside_frac(1-1/x, quarter_turn_right(
            beside_frac(1-1/x, quarter_turn_right(
            beside_frac(1-1/x, quarter_turn_right(
            make_cross(rune))
-           ,stackn(x-2,quarter_turn_right(rune))))
-           ,stackn(x-1,turn_upside_down(rune))))
-           ,stackn(x-1,quarter_turn_left(rune))))
+           ,stackn(x-2,rune)))
+           ,stackn(x-1,rune)))
+           ,stackn(x-1,rune)))
            ,stackn(x,rune));
 }
 //show(beside_frac(1 - 1/n, make_cross(paw),stackn(n-2,paw)));
