@@ -1,7 +1,8 @@
 import {from_url, stack_frac, stack, beside_frac, beside, quarter_turn_right,quarter_turn_left, make_cross, rcross, stackn, show} from "rune";
 
 const paw = from_url("https://i.imgur.com/GJg95B8.png");
-const n = 5;
+const x = 5;
+/*
 function start(rune,n)
 {
     return beside_frac(1 - 1/n, make_cross(rune),stackn(n-2,rune));
@@ -16,7 +17,7 @@ function qtr_turn_add(rune,n)
 {
     return beside_frac(1-1/n, quarter_turn_right(rune), stackn(n-1,paw));
 }
-
+*/
 function do_x_times(rune,x)
 {
     return beside_frac(1-1/x, quarter_turn_right(
@@ -24,7 +25,7 @@ function do_x_times(rune,x)
            beside_frac(1-1/x, quarter_turn_right(
            beside_frac(1-1/x, quarter_turn_right(
            make_cross(rune))
-           ,stackn(x-1,rune)))
+           ,stackn(x-2,rune)))
            ,stackn(x-1,rune)))
            ,stackn(x-1,rune)))
            ,stackn(x,rune));
