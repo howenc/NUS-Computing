@@ -8,11 +8,6 @@ function start(rune,n)
     return beside_frac(1 - 1/n, make_cross(rune),stackn(n-2,rune));
 }
 
-function start1(rune,n)
-{
-    return beside_frac(1-1/n, quarter_turn_right(beside_frac(1 - 1/n, make_cross(rune),stackn(n-2,rune))),stackn(n-1,rune));
-}
-
 function qtr_turn_add(rune,n)
 {
     return beside_frac(1-1/n, quarter_turn_right(rune), stackn(n-1,paw));
@@ -23,12 +18,12 @@ function turn_upside_down(rune)
 {
     return quarter_turn_right(quarter_turn_right(rune));
 }
-function do_x_times(rune,x)
+function persian(rune,x)
 {
-    return beside_frac(1-1/5, quarter_turn_right(
-           beside_frac(1-1/5, quarter_turn_right(
-           beside_frac(1-1/4, quarter_turn_right(
-           beside_frac(1-1/4, quarter_turn_right(
+    return beside_frac(1-1/x, quarter_turn_right(
+           beside_frac(1-1/x, quarter_turn_right(
+           beside_frac(1-1/(x-1), quarter_turn_right(
+           beside_frac(1-1/(x-1), quarter_turn_right(
            make_cross(rune))
            ,stackn(x-2,quarter_turn_right(rune))))
            ,stackn(x-1,turn_upside_down(rune))))
