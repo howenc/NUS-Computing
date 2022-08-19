@@ -14,9 +14,16 @@ function qtr_turn_add(rune,n)
 }
 */
 
-function besiden(n,rune)
+function besiden1(n,rune)
 {
     return quarter_turn_right(stackn(n,quarter_turn_left(rune)));
+}
+
+function besiden(n, rune) {
+   return n === 1
+   ? rune
+   : beside_frac(1/n,rune,
+                besiden(n-1,rune));
 }
 
 function turn_upside_down(rune)
@@ -64,7 +71,7 @@ function refinedpersian(rune,x)
     return both(make_cross(rune),rune,x);
 }
 
-show(refinedpersian(,paw,5));
+show(refinedpersian(paw,5));
 
 /*
 function add4side(center,pattern,x)
