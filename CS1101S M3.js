@@ -30,19 +30,23 @@ function refinedsteps(r1,r2,r3,r4){
     return overlay(overlay(rotate(r4,4),rotate(r3,3)),overlay(rotate(r2,2),rotate(r1,1)));
 }
 
-show(refinedsteps(rcross,triangle,corner,nova));
+//show(refinedsteps(rcross,triangle,corner,nova));
 
 //Question 2
 
-function conehelp(counter,rune){
-    return counter===0
-    ? rune
-    : scale(1-1/counter,overlay(conehelp(counter-1,rune),circle));
+function conehelp(counter,constant,rune){
+    return counter===1
+         ? rune
+         : overlay_frac(1-1/counter,scale(1-1/counter,conehelp(counter-1,constant,rune)),constant);
 }
 
 function cone(n,rune){
-    return overlay_frac(1-1/n,conehelp(n,rune),circle);
+    return conehelp(n,rune,rune);
 }
 
-show(cone(4, circle));
-hollusion(cone(4,circle));
+show(cone(20,circle));
+//hollusion(cone(4,circle));
+
+//show(overlay(scale(3/4,overlay(scale(2/3,overlay(scale(1/2,circle),circle)),circle)),circle));
+
+//show(overlay_frac(3/4,scale(3/4,overlay_frac(2/3,scale(2/3,overlay_frac(1/2,scale(1/2,circle),circle)),circle)),circle));
