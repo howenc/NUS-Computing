@@ -34,14 +34,14 @@ show(refinedsteps(rcross,triangle,corner,nova));
 
 //Question 2
 
-function conehelp(counter,n,rune,constant){
+function conehelp(counter,rune){
     return counter===0
     ? rune
-    : scale(1-1/n,overlay(conehelp(counter-1,n-1,rune,constant),circle));
+    : scale(1-1/counter,overlay(conehelp(counter-1,rune),circle));
 }
 
 function cone(n,rune){
-    return overlay_frac(1-1/n,conehelp(n,n,rune,n),circle);
+    return overlay_frac(1-1/n,conehelp(n,rune),circle);
 }
 
 show(cone(4, circle));
