@@ -39,16 +39,17 @@ function colorstack(n,rune1,rune2){
     return stack_frac(1/n,rune1,rune2);
 }
 
-function repeat(row_count,counter,column_count,constant,rune){
-    return counter === 1
-         ? constant
-         : repeat(row_count,counter-1,column_count,constant,colorstack(row_count,constant,rune));
+function repeat(counter,row_count,thing_to_repeat){
+    return counter === row_count
+         ? thing_to_repeat
+         : repeat(counter+1,row_count,colorstack(counter,colorbesiden(4,heart),thing_to_repeat));
 }
 
-show(repeat(3,3,2,colorbesiden(4,heart),heart));
+function 
+show(repeat(1,4,colorbesiden(4,heart)));
 
-show(stackn(4,colorbesiden(4,heart)));
-//show(colorstack(3,colorbesiden(4,heart),colorstack(2,colorbesiden(4,heart),colorstack(1,colorbesiden(4,heart),heart))));
+//show(stackn(4,colorbesiden(4,heart)));
+show(colorstack(3,colorbesiden(4,heart),colorstack(2,colorbesiden(4,heart),colorstack(1,colorbesiden(4,heart),heart))));
 
 /*
 function fuckthisshit(n,m,rune){
@@ -62,7 +63,7 @@ function fuckthisshit(n,m,rune){
 fuckthisshit(3,4,heart)
 */
 
-show(stack_frac(1/4,colorbesiden(4,heart),stack_frac(1/3,colorbesiden(4,heart),stack_frac(1/2,colorbesiden(4,heart),colorbesiden(4,heart)))));
+//show(stack_frac(1/4,colorbesiden(4,heart),stack_frac(1/3,colorbesiden(4,heart),stack_frac(1/2,colorbesiden(4,heart),colorbesiden(4,heart)))));
 
 
 function reprat(n,counter){
