@@ -23,11 +23,6 @@ function colorbesiden(n, rune) {
                 colorbesiden(n-1,random_color(rune)));
 }
 
-function randomly_colored_carpet(n, m, rune) {
-    return (colorbesiden(n,rune));
-}
-
-
 function colorstackn(n, rune) {
    return n === 1
    ? rune
@@ -39,17 +34,22 @@ function colorstack(n,rune1,rune2){
     return stack_frac(1/n,rune1,rune2);
 }
 
-function repeat(counter,row_count,thing_to_repeat){
+function repeat(counter,row_count,column_count,rune,thing_to_repeat){
     return counter === row_count
          ? thing_to_repeat
-         : repeat(counter+1,row_count,colorstack(counter,colorbesiden(4,heart),thing_to_repeat));
+         : repeat(counter+1,row_count,column_count,rune,colorstack(counter,colorbesiden(column_count,rune),thing_to_repeat));
 }
 
-function 
-show(repeat(1,4,colorbesiden(4,heart)));
+function randomly_colored_carpet(row_count,column_count,rune){
+    return repeat(1,row_count+1,column_count,rune,colorbesiden(column_count,rune));
+}
+
+show(randomly_colored_carpet(3,3,heart));
+
+show(repeat(1,4,4,heart,colorbesiden(4,heart)));
 
 //show(stackn(4,colorbesiden(4,heart)));
-show(colorstack(3,colorbesiden(4,heart),colorstack(2,colorbesiden(4,heart),colorstack(1,colorbesiden(4,heart),heart))));
+//show(colorstack(3,colorbesiden(4,heart),colorstack(2,colorbesiden(4,heart),colorstack(1,colorbesiden(4,heart),heart))));
 
 /*
 function fuckthisshit(n,m,rune){
