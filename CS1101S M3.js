@@ -1,32 +1,7 @@
 import {overlay, overlay_frac, scale, scale_independent, circle, blank, corner, square, translate, anaglyph, hollusion, nova, triangle, stack_frac, stack, beside_frac, heart, beside, quarter_turn_right,quarter_turn_left, make_cross, rcross, stackn, show} from "rune";
 
 
-function conehelp(counter,n,rune,constant){
-    return counter===0
-    ? rune
-    : scale(1-1/n,overlay(conehelp(counter-1,n-1,rune,constant),circle));
-}
-
-function cone(n,rune){
-    return conehelp(n+1,n+1,rune,n);
-}
-
-show(overlay_frac(1-1/3,cone(3,circle),circle));
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-Question 1
+//Question 1
 function steps(r1,r2,r3,r4){
     return overlay(beside(overlay(stack(r4,blank),stack(blank,r3)),blank),beside(blank,overlay(stack(blank,r2),stack(r1,blank))));
 }
@@ -56,4 +31,18 @@ function refinedsteps(r1,r2,r3,r4){
 }
 
 show(refinedsteps(rcross,triangle,corner,nova));
-*/
+
+//Question 2
+
+function conehelp(counter,n,rune,constant){
+    return counter===0
+    ? rune
+    : scale(1-1/n,overlay(conehelp(counter-1,n-1,rune,constant),circle));
+}
+
+function cone(n,rune){
+    return overlay_frac(1-1/n,conehelp(n,n,rune,n),circle);
+}
+
+show(cone(4, circle));
+hollusion(cone(4,circle));
