@@ -4,7 +4,9 @@ function moony_1(n)
 {
     return n===1
           ? circle
-          : beside(stack(circle,square),stack(blank,moony_1(n-1)));
+          : beside(
+              stack(circle,square),
+              stack(blank,moony_1(n-1)));
 }
 
 function moony_3(n,rune)
@@ -16,11 +18,11 @@ function moony_3(n,rune)
 
 
 
-function moony_31(counter,rune)
+function moony_31(n,counter,rune)
 {
-    return counter===1
+    return counter===n
           ? rune
-          : moony_31(counter-1,beside_frac(1/counter,stack_frac(1/counter,circle,square),stack_frac(1/counter,blank,circle)));
+          : moony_31(n,counter+1,beside_frac(1/counter,stack_frac(1/counter,circle,square),stack_frac(1-1/counter,blank,circle)));
 }
 
-show(moony_31(1,circle));
+show(moony_31(1,1,circle));
