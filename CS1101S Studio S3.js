@@ -22,7 +22,7 @@ function moony_31(n,counter,rune)
 {
     return counter===n
           ? rune
-          : moony_31(n,counter+1,beside_frac(1/counter,stack_frac(1/counter,circle,square),stack_frac(1-1/counter,blank,circle)));
+          : moony_31(n,counter+1,beside_frac(1/counter,stack_frac(1/counter,circle,square),stack_frac(1/counter,blank,circle)));
 }
 
-show(moony_31(1,1,circle));
+show(moony_31(4,1,circle));
