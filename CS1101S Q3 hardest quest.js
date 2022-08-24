@@ -23,5 +23,18 @@ const increment_repeater =
 const thrice = increment_repeater(twice);
 const fourtimes = increment_repeater(thrice);
 const warn = thrice(display);
-warn("ALERT");          // should display "ALERT"
+//warn("ALERT");          // should display "ALERT"
                         // three times
+                        
+                        
+                        
+const pair = (x, y) => f => f(x, y);
+const head = (x,y) => x;
+pair(1,2)(head);
+/*
+const head = p => pair(a,b) => a;  // complete lambda expression
+const tail = p => pair(a,b) => b;  // complete lambda expression
+
+head(pair(1, 2)) === 1; // should return true
+tail(pair(1, 2)) === 2; // should return true
+*/
