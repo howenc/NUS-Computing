@@ -31,4 +31,56 @@ function moony_3iter(n,rune){
 show(moony_3iter(9,circle));
 
 
+
+function fast_exp(x, e) {
+    return e === 0
+        ? 1
+        : e % 2 === 0
+            ? sqr(fast_exp(x, e/2))
+            : x * fast_exp(x, e - 1);
+}
+
+function sqr(x) {
+    return x * x;
+}
+
+
+
+function fast_exp_iter_helper(x, e, result, count) {
+    //display(count);
+    return count === e
+        ? result
+        : count > e
+            ? fast_exp_iter_helper(x, e, result / x, count - 1)
+            : count % 2 === 0 && count > 0
+                ? fast_exp_iter_helper(x, e, result * result, count * 2)
+                : fast_exp_iter_helper(x, e, result * x, count + 1);
+}
+
+function fast_exp_iter(x, e) {
+    return fast_exp_iter_helper(x, e, 1, 0);
+}
+
+function fast_exp_cps_helper(x, e, result_producer) {
+    return e === 0
+        ? result_producer(1)
+        : e % 2 === 0
+            ? fast_exp_cps_helper(x, e/2, (next) => result_producer(next * next))
+            : fast_exp_cps_helper(x, e-1, (next) => result_producer(next * x));
+}
+
+function fast_exp_cps(x, e) {
+    return fast_exp_cps_helper(x, e, (next) => next);
+}
+
+function exp_test(f, base, start, end) {
+    display(f(base, start));
+    return start >= end 
+        ? 0 
+        : exp_test(f, base, start + 1, end);
+}
+
+exp_test(fast_exp_iter, 2, 0, 10);
+exp_test(fast_exp_cps, 2, 0, 10);
+
 //show(beside_frac(1/1,stack_frac(1/1,circle,square),stack_frac(1/1,blank,circle))));
