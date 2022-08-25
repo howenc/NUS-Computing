@@ -54,11 +54,30 @@ const increment_repeater = repeater =>
                             repeater(display)(display(displayinput));
 
 const add_repeaters = (repeater1, repeater2) =>
-                                           p => 
-                                           p(repeater1,repeater2)
+                                     display =>
+                                     displayinput =>
+                                     repeater1(display)
+                                              (repeater2(display)
+                                                        (displayinput))
                                            ;
 const pair = (x, y) => f => f(x, y);
 const head = p => p((x,y)=>x);  // complete lambda expression
 const tail = p => p((x,y)=>y);
 to_int(add_repeaters(two_repeater,
                      three_repeater));  // should return 5
+const pair = (x, y) => f => f(x, y);
+const head = p => p((x,y)=>x);
+const tail = p => p((x,y)=>y);
+
+const zero_repeater = f => x => x;
+const decrement_repeater =
+    repeater =>
+        head(repeater(p => pair(tail(p),
+                                increment_repeater(tail(p))
+                                )
+                     )
+             (pair(zero_repeater, zero_repeater))
+            );
+const twice = f => x => f(f(x));
+const thrice = increment_repeater(twice);
+const also_twice = decrement_repeater(thrice);
