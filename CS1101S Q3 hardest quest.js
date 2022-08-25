@@ -84,7 +84,7 @@ const three_repeater = f => x => f(two_repeater, () => two_repeater(f)(x));
 
 const to_int = repeater => repeater((iter_count, x) => x() + 1)(0);
 
-const increment_repeater = repeater =>
+const increment_repeater_better = repeater =>
                             add_repeaters(repeater,one_repeater);
 
 const add_repeaters = (repeater1, repeater2) =>
@@ -94,9 +94,6 @@ const add_repeaters = (repeater1, repeater2) =>
                                               (repeater2(display)
                                                         (displayinput))
                                            ;
-const pair = (x, y) => f => f(x, y);
-const head = p => p((x,y)=>x);  // complete lambda expression
-const tail = p => p((x,y)=>y);
 to_int(add_repeaters(two_repeater,
                      three_repeater));  // should return 5
                      
