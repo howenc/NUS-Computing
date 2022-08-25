@@ -35,7 +35,7 @@ bigwarn("A L E R T");   // should display "A L E R T"
                         // returned by bigwarn
 const x5 = increment_repeater(fourtimes);
 const my_life = x5(display);
-my_life("i wanna kill myself because of this shit");
+//my_life("i wanna kill myself because of this shit");
 
 // Q2
 const pair = (x, y) => f => f(x, y);
