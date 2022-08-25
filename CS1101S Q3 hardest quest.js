@@ -1,4 +1,4 @@
-
+/*
 const twice = display => input => display(display(input));
 
 const increment_repeater = 
@@ -31,10 +31,34 @@ const warn = thrice(display);
 const pair = (x, y) => f => f(x, y);
 const head = (x,y) => x;
 pair(1,2)(head);
+*/
 /*
-const head = p => pair(a,b) => a;  // complete lambda expression
-const tail = p => pair(a,b) => b;  // complete lambda expression
+const head = p => p((x,y)=>x);  // complete lambda expression
+const tail = p => p((x,y)=>y);  // complete lambda expression
 
 head(pair(1, 2)) === 1; // should return true
 tail(pair(1, 2)) === 2; // should return true
 */
+
+
+const zero_repeater = f => x => x;
+const one_repeater = f => x => f(zero_repeater, () => zero_repeater(f)(x));
+const two_repeater = f => x => f(one_repeater, () => one_repeater(f)(x));
+const three_repeater = f => x => f(two_repeater, () => two_repeater(f)(x));
+
+const to_int = repeater => repeater((iter_count, x) => x() + 1)(0);
+
+const increment_repeater = repeater =>
+                            display => 
+                            displayinput => 
+                            repeater(display)(display(displayinput));
+
+const add_repeaters = (repeater1, repeater2) =>
+                                           p => 
+                                           p(repeater1,repeater2)
+                                           ;
+const pair = (x, y) => f => f(x, y);
+const head = p => p((x,y)=>x);  // complete lambda expression
+const tail = p => p((x,y)=>y);
+to_int(add_repeaters(two_repeater,
+                     three_repeater));  // should return 5
