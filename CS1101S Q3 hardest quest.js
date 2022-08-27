@@ -102,7 +102,7 @@ to_int(add_repeaters(two_repeater,
                      three_repeater));  // should return 5
                      
 // Q5
-const this_arguement_does_not_matter = false
+const this_arguement_does_not_matter = false;
 const decrement_repeater = three_repeater =>                
                              (three_repeater)((x,y)=>x)(this_arguement_does_not_matter);
 
