@@ -77,8 +77,8 @@ const increment_repeater = repeater =>
 const add_repeaters = (currentrepeater, addonrepeater) => 
                                                      f => 
                                                      x => 
-                                                     f(currentrepeater
-                                                        ,() =>((currentrepeater)
+                                                     f(currentrepeater,
+                                                        () =>((currentrepeater)
                                                                       ((x,y)=>x)
                                                                       (currentrepeater))
                                                               (f)
