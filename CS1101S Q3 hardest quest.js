@@ -55,21 +55,8 @@ tail(pair(1, 2)) === 2; // should return true
 // Q3
 
 /*
-2^n
 
-
-repeater called 2 times
-
-for every repeater called it will have 2 times of       2
-all the functions repeater function calls.              
-simplest case is twice.
-twice repeater calls 2 functions                        2
-thrice is a function of increment_repeater which
-calls 2 more twice functions                            2*2
-fourtimes is a function of increment repeater which
-calls 2 thrice functions which each calls 2 twice    2*2*2
-
-2*2
+I GOT THE WRONG ANSWER IT IS NOT n^2
 
 enter your answer here; no explanation required
 
