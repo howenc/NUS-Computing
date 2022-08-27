@@ -90,20 +90,21 @@ const increment_repeater = repeater =>
 const add_repeaters = (currentrepeater, addonrepeater) => 
                                                      f => 
                                                      x => 
-                                                     f(currentrepeater => 
-                                                                      f => 
-                                                                      x => 
-                                                                      (prevaddonrepeater,a)=>prevaddonrepeater
-                                                        ,() =>((currentrepeater)((x,y)=>x)(currentrepeater))(f)(addonrepeater(f)(x)));
-
-
+                                                     f(currentrepeater
+                                                        ,() =>((currentrepeater)
+                                                                      ((x,y)=>x)
+                                                                      (currentrepeater))
+                                                              (f)
+                                                              (addonrepeater(f)(x))
+                                                      );
+                                                      
 to_int(add_repeaters(two_repeater,
                      three_repeater));  // should return 5
                      
 // Q5
-
+const this_arguement_does_not_matter = false
 const decrement_repeater = three_repeater =>                
-                             (three_repeater)((x,y)=>x)(three_repeater);
+                             (three_repeater)((x,y)=>x)(this_arguement_does_not_matter);
 
 to_int(decrement_repeater(three_repeater));  // should return 2
 
