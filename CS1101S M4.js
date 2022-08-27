@@ -1,51 +1,57 @@
-import {draw_connected_full_view, unit_circle} from "curve";
+import {draw_connected_full_view, unit_circle, make_point, draw_connected, x_of, y_of, draw_connected_full_view_proportional} from "curve";
 
 // Q1
 
-const connect_numbers =
-    n => draw_connected_full_view(n)(unit_circle);
-    
-    
-connect_numbers(5); // returns a Drawing of a pentagon
+// Part 1
+// I don't understand but it should be line right? 
+//your answer here (keep your answer commented)
+
+
+// Part 2
+function vertical_line(pt, length) {
+    return t => make_point(0.5,pt +length*t);
+}
+
+
+// Part 3
+// I don't understand but it should be line right?
+// your answer here (keep your answer commented)
+
+
+// Part 4
+draw_connected(90)(vertical_line(0.25,0.5));
+//this is what the question is asking right?
 
 // Q2
 
-const connect_results =
-    (n, f) =>
-        draw_connected_full_view(n)
-        (t => unit_circle(
-                         f(math_round(t * n)) / n)
-                         );
-                         
-const star =
-    (n,step) => connect_results(n,
-                                k=>step*k);
+
+function three_quarters(pt) {
+    const xcord = x_of(pt);
+    const ycord = y_of(pt);
+    return t => make_point(math_cos(2*math_PI*(t*3/4))+xcord,math_sin(2*math_PI*(t*3/4))+ycord);
+}
+
+draw_connected_full_view_proportional(200)(three_quarters(make_point(0.5,0.25)));
+
+//draw_connected_full_view_proportional(200)(three_quarters(make_point(0.5, 0.25)));
+
+//draw_connected_full_view_proportional(200)(three_quarters(make_point(0,0)));
 
 
-star(11, 4);
+
+
+//makepoint => (x,y) =>makepoint(math_cos(2*math_PI*t+x),math_sin(2*math_PI*t+y)))(t)(1,1)(makepoint)
 
 // Q3
 
-const wheel =
-    (n) => 
-    connect_results(n * 3,
-                    k => { const v = 3 * math_round((k - 1) / 3);
-                           return k % 3 === 1 ? v + (3 *n/2) : v; }
-        );
+function s_generator(pt) {
+    const xcord = x_of(pt);
+    const ycord = y_of(pt);
+    const ycord2 = ycord -2;
+    return t => t <= 1/2 
+                ? make_point(math_cos(2*math_PI*(2*t*3/4))+xcord,math_sin(2*math_PI*(2*t*3/4))+ycord)
+                : make_point(math_cos(2*math_PI*(2*t*3/4))+xcord,math_sin(2*math_PI*(-2*t*3/4))+ycord2);
+}
 
-wheel(100);
 
-// Q4
-
-const connect_laps =
-    (n, g) =>
-    connect_results(n * 3,
-                    k => { const v = math_round((k -1) / 3);
-                           return k % 3 === 1 ? g(v)*3: v * 3; }
-                   );
-
-const draw_times_table =
-    (n,m) => connect_laps(n,k=>(m*k));
-
-    
-draw_times_table(395,100);   
+draw_connected_full_view_proportional(200)(s_generator(make_point(0.5, 0.25)));
