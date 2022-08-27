@@ -1,5 +1,5 @@
 function pascal(row,position) {
-    return row < 1
+    return row <=1
          ? 1
          : position <= 1
          ? 1
@@ -7,4 +7,4 @@ function pascal(row,position) {
          ? 1
          : pascal(row-1,position-1) + pascal(row-1,position);
 }
-pascal(4,1);
+pascal(4,2);
