@@ -84,16 +84,19 @@ const three_repeater = f => x => f(two_repeater, () => two_repeater(f)(x));
 
 const to_int = repeater => repeater((iter_count, x) => x() + 1)(0);
 
-const increment_repeater_better = repeater =>
-                            add_repeaters(repeater,one_repeater);
+const increment_repeater = repeater =>
+                            f => x => f(repeater, () => repeater(f)(x));
+                                                  
+const add_repeaters = (currentrepeater, addonrepeater) => 
+                                                     f => 
+                                                     x => 
+                                                     f(currentrepeater => 
+                                                                      f => 
+                                                                      x => 
+                                                                      (prevaddonrepeater,a)=>prevaddonrepeater
+                                                        ,() =>((currentrepeater)((x,y)=>x)(currentrepeater))(f)(addonrepeater(f)(x)));
 
-const add_repeaters = (repeater1, repeater2) =>
-                                     display =>
-                                     displayinput =>
-                                     repeater1(display)
-                                              (repeater2(display)
-                                                        (displayinput))
-                                           ;
+
 to_int(add_repeaters(two_repeater,
                      three_repeater));  // should return 5
                      
