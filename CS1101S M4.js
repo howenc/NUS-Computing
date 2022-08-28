@@ -3,9 +3,11 @@ import {draw_connected_full_view, unit_circle, make_point, draw_connected, x_of,
 // Q1
 
 // Part 1
-// I don't understand but it should be line right? 
-//your answer here (keep your answer commented)
+// I don't understand but it should be line right?
 
+// (number)-> f(number) -> point
+// curve?
+//your answer here (keep your answer commented)
 
 // Part 2
 function vertical_line(makepoint, length) {
@@ -13,15 +15,16 @@ function vertical_line(makepoint, length) {
     const ycord = y_of(makepoint);
     return t => make_point(xcord, ycord+(length*t));
 }
-draw_connected(90)(vertical_line(make_point(0.5,0.25),0.5));
 
 // Part 3
 // I don't understand but it should be line right?
+// (point,number) -> f(x_of(point),y_of(point) + (number*parameternumber)) -> (parameternumber->point)
+// curve?
 // your answer here (keep your answer commented)
 
 
 // Part 4
-draw_connected(90)(vertical_line(0.25,0.5));
+draw_connected(90)(vertical_line(make_point(0.5,0.25),0.5));
 //this is what the question is asking right?
 
 // Q2
