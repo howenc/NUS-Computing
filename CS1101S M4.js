@@ -46,7 +46,7 @@ draw_connected_full_view_proportional(200)(three_quarters(make_point(0.5,0.25)))
 
 function s_generator(pt) {
     const xcord = x_of(pt);
-    const ycord = y_of(pt);
+    const ycord = y_of(pt)+1;
     const ycord2 = ycord -2;
     return t => t <= 1/2 
                 ? make_point(math_cos(2*math_PI*(2*t*3/4))+xcord,math_sin(2*math_PI*(2*t*3/4))+ycord)
