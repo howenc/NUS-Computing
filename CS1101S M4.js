@@ -8,10 +8,12 @@ import {draw_connected_full_view, unit_circle, make_point, draw_connected, x_of,
 
 
 // Part 2
-function vertical_line(pt, length) {
-    return t => make_point(0.5,pt +length*t);
+function vertical_line(makepoint, length) {
+    const xcord = x_of(makepoint);
+    const ycord = y_of(makepoint);
+    return t => make_point(xcord, ycord+(length*t));
 }
-
+draw_connected(90)(vertical_line(make_point(0.5,0.25),0.5));
 
 // Part 3
 // I don't understand but it should be line right?
@@ -55,3 +57,4 @@ function s_generator(pt) {
 
 
 draw_connected_full_view_proportional(200)(s_generator(make_point(0.5, 0.25)));
+*/
