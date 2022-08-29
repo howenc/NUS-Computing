@@ -44,13 +44,19 @@ function accumulate(combiner, term, a, next, b, base) {
 // }
 }
 
-
-
-
-
-
 function my_sum(n) {
     return n === 0
            ? 0
            : (n+1) * n + my_sum(n-1);
+}
+
+
+function compose(f, g){
+return x => f(g(x));
+}
+
+function repeated(f, n) {
+return n === 0
+? x => x
+: compose(f, repeated(f, n - 1));
 }
