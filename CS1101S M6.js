@@ -2,28 +2,11 @@ import {draw_connected_full_view, connect_ends, unit_circle, make_point, draw_co
 
 // Q1
 
-function s_generator(pt) {
-    const xcord = x_of(pt);
-    const ycord = y_of(pt) + 1;
-    const ycord2 = ycord - 2;
-    return t => t <= 1/2 
-                ? make_point(math_cos(2 * math_PI * (2 * t * 3/4))+ xcord,
-                             math_sin(2 * math_PI * (2 * t * 3/4))+ ycord)
-                : make_point(math_cos(2 * math_PI * (2 * t * 3/4))+ xcord,
-                             math_sin(2 * math_PI * (-2 * t * 3/4)) + ycord2);
+function fractal(level, transformation, curve) {
+    return level ===0 
+         ? curve 
+         : fractal(level - 1, transformation, transformation(curve));
 }
-
-const my_s = s_generator(make_point(0,0));
-
-function reflect_through_y_axis(curve) {
-    return t => make_point(-x_of(curve(t)),
-                            y_of(curve(t))
-                          );
-}
-
-(draw_connected_full_view_proportional(200))(reflect_through_y_axis(my_s));
-
-// Q2
 
 function levycize(curve) {
     const f = math_sqrt(2) / 2;
@@ -34,6 +17,12 @@ function levycize(curve) {
             ((rotate_around_origin(0, 0, -math_PI / 4))(scaled_curve)));
 }
 
+
+draw_connected_full_view_proportional(10000)
+    (fractal(11, levycize, unit_line));
+
+// Q2
+
 function dragonize(curve) {
     const f = math_sqrt(2) / 2;
     const scaled_curve = (scale(f, f, 1))(curve);
@@ -42,13 +31,6 @@ function dragonize(curve) {
         translate(0.5, 0.5, 0)
             ((rotate_around_origin(0, 0, -math_PI / 4))(scaled_curve)));
 }
-
-function fractal(level, transformation, curve) {
-    return level ===0 
-         ? curve 
-         : fractal(level - 1, transformation, transformation(curve));
-}
-
 
 draw_connected_full_view_proportional(10000)
     (fractal(11, dragonize, unit_line));
@@ -63,12 +45,6 @@ function kochize(curve) {
                             connect_ends(up_60(curve),
                                          connect_ends(down_60(curve),
                                                       curve))));
-}
-
-function fractal(level, transformation, curve) {
-    return level ===1 
-         ? curve 
-         : fractal(level - 1, transformation, transformation(curve));
 }
 
 function snowflake(n) {
