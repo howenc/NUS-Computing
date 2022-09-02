@@ -69,6 +69,6 @@ connect_ends(
                                                  (rotate_around_origin(0, 0,2* math_PI/3))(fractal(n,kochize,unit_line))),
                                     (rotate_around_origin(0, 0, math_PI/3))(fractal(n,kochize,unit_line))));
 */
-draw_connected_full_view_proportional(10000)(snowflake(0));
+draw_connected_full_view_proportional(10000)(snowflake(5));
 // Test
 //draw_connected_full_view_proportional(10000)(snowflake(5));
