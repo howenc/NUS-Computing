@@ -25,49 +25,33 @@ function reflect_through_y_axis(curve) {
 
 // Q2
 
-function straightline(curve) {
-    const startxcord = x_of(curve(make_point(0,0))
-                            (0)
-                            );
-    const startycord = y_of(curve(make_point(0,0))
-                            (0)
-                            );
-    const endxcord = x_of(curve(make_point(0,0))
-                          (1)
-                          );
-    const endycord = y_of(curve(make_point(0,0))
-                          (1)
-                          );
-    return t => make_point((startxcord-endxcord) *t,
-                           (startycord-endycord) *t
-                           );
+function levycize(curve) {
+    const f = math_sqrt(2) / 2;
+    const scaled_curve = (scale(f, f, 1))(curve);
+    return connect_rigidly(
+        (rotate_around_origin(0, 0, math_PI / 4))(scaled_curve),
+        (translate(0.5, 0.5, 0))
+            ((rotate_around_origin(0, 0, -math_PI / 4))(scaled_curve)));
 }
 
-function close(curve) {
-    return connect_ends(s_generator(make_point(0,0)),
-                        straightline(s_generator)
-                        );    
+function dragonize(curve) {
+    const f = math_sqrt(2) / 2;
+    const scaled_curve = (scale(f, f, 1))(curve);
+    return connect_ends(invert(
+        (rotate_around_origin(0, 0,5*math_PI / 4))(scaled_curve)),
+        translate(0.5, 0.5, 0)
+            ((rotate_around_origin(0, 0, -math_PI / 4))(scaled_curve)));
 }
 
-/*
-function vertical_line(makepoint, length) {
-    const xcord = x_of(makepoint);
-    const ycord = y_of(makepoint);
-    return t => make_point(xcord, ycord+(length*t));
+function fractal(level, transformation, curve) {
+    return level ===0 
+         ? curve 
+         : fractal(level - 1, transformation, transformation(curve));
 }
-very interesting, it does not matter where i put the vertical line, it will always
-start at the end of the 1st curve, even if i put another coordinate as the starting
-point for the next curve.
 
-its like it resets and actually draws another curve using another point as its centre
-it calculates the 2nd centre by using the ending point of the 1st curve, taking that point as
-its starting and than work backwords to get the centre. after that i completes the 2nd curve
-with the new centre as the point.
 
-amazing
-*/
-
-draw_connected_full_view_proportional(200)(close(s_generator));
+draw_connected_full_view_proportional(10000)
+    (fractal(11, dragonize, unit_line));
 
 // Q3 
 
