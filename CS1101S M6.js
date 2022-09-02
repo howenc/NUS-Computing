@@ -1,4 +1,4 @@
-import {draw_connected_full_view, connect_ends, unit_circle, make_point, draw_connected, x_of, y_of, draw_connected_full_view_proportional} from "curve";
+import {draw_connected_full_view, scale, connect_rigidly, rotate_around_origin, translate, unit_line, invert, put_in_standard_position, connect_ends, unit_circle, make_point, draw_connected, x_of, y_of, draw_connected_full_view_proportional} from "curve";
 
 // Q1
 
