@@ -68,3 +68,47 @@ amazing
 */
 
 draw_connected_full_view_proportional(200)(close(s_generator));
+
+// Q3 
+
+function kochize(curve) {
+    const up_60 = rotate_around_origin(0, 0, math_PI / 3);
+    const down_60 = rotate_around_origin(0, 0, - math_PI / 3);
+    return put_in_standard_position(
+               connect_ends(curve,
+                            connect_ends(up_60(curve),
+                                         connect_ends(down_60(curve),
+                                                      curve))));
+}
+
+function fractal(level, transformation, curve) {
+    return level ===1 
+         ? curve 
+         : fractal(level - 1, transformation, transformation(curve));
+}
+
+function snowflake(n) {
+    return connect_ends(
+                        connect_ends(
+                                    fractal(n+1,kochize,unit_line),
+                                    (rotate_around_origin(0, 0, -2*math_PI/3))(fractal(n+1,kochize,unit_line))),
+                        rotate_around_origin(0, 0, 2*math_PI/3)(fractal(n+1,kochize,unit_line))
+                        );
+}
+/*
+6 sides
+connect_ends(
+                        connect_ends(
+                                    connect_ends(
+                                                (fractal(n,kochize,unit_line)),
+                                                (rotate_around_origin(0, 0, -math_PI /3))(fractal(n,kochize,unit_line))),
+                                    (rotate_around_origin(0, 0, -2*math_PI/3))(fractal(n,kochize,unit_line))),
+                        connect_ends(
+                                     connect_ends(
+                                                 (rotate_around_origin(0, 0, -math_PI))(fractal(n,kochize,unit_line)),
+                                                 (rotate_around_origin(0, 0,2* math_PI/3))(fractal(n,kochize,unit_line))),
+                                    (rotate_around_origin(0, 0, math_PI/3))(fractal(n,kochize,unit_line))));
+*/
+draw_connected_full_view_proportional(10000)(snowflake(0));
+// Test
+//draw_connected_full_view_proportional(10000)(snowflake(5));
