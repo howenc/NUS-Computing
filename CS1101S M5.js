@@ -25,16 +25,6 @@ function reflect_through_y_axis(curve) {
 
 // Q2
 
-function s_generator(pt) {
-    const xcord = x_of(pt);
-    const ycord = y_of(pt) + 1;
-    const ycord2 = ycord - 2;
-    return t => t <= 1/2 
-                ? make_point(math_cos(2 * math_PI * (2 * t * 3/4))+ xcord,
-                             math_sin(2 * math_PI * (2 * t * 3/4))+ ycord)
-                : make_point(math_cos(2 * math_PI * (2 * t * 3/4))+ xcord,
-                             math_sin(2 * math_PI * (-2 * t * 3/4)) + ycord2);
-}
 
 //const my_s_curve = s_generator(make_point(0,0));
 const my_s_curve = s_generator(make_point(0,0));
@@ -46,11 +36,6 @@ function reverse(curve) {
                           );
 }
 
-function reflect_through_y_axis(curve) {
-    return t => make_point(-x_of(curve(t)),
-                            y_of(curve(t))
-                          );
-}                          
 /*
 function straightline(curve) {
     const startxcord = x_of(curve(make_point(0,0))
