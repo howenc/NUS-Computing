@@ -1,51 +1,41 @@
-import {draw_connected_full_view, unit_circle} from "curve";
+import {draw_connected_full_view, unit_circle, make_point, translate, scale, connect_rigidly, draw_points} from "curve";
 
 // Q1
 
-const connect_numbers =
-    n => draw_connected_full_view(n)(unit_circle);
-    
-    
-connect_numbers(5); // returns a Drawing of a pentagon
+const test_curve =
+    t => make_point(t, 0.5 + (math_sin(4 * (math_PI * t)) / 2));
+
+function stack(c1,c2) {
+    const tsc1 = translate(0,0.5,0)
+                                   (scale(1,0.5,1)(c1)
+                                    );
+                                    
+    const tsc2 = translate(0,0,0)
+                                 (scale(1,0.5,1)(c2)
+                                  );
+                                  
+    return connect_rigidly(tsc1,tsc2);
+}
+
+draw_points(10000)(stack(test_curve, test_curve));
 
 // Q2
 
-const connect_results =
-    (n, f) =>
-        draw_connected_full_view(n)
-        (t => unit_circle(
-                         f(math_round(t * n)) / n)
-                         );
-                         
-const star =
-    (n,step) => connect_results(n,
-                                k=>step*k);
 
+function stack_frac(frac, c1, c2) {
+    const tsc1 = translate(0,1-frac,0)
+                                   (scale(1,frac,1)(c1)
+                                    );
+                                    
+    const tsc2 = translate(0,0,0)
+                                 (scale(1,1-frac,1)(c2)
+                                  );
+                                  
+    return connect_rigidly(tsc1,tsc2);
+}
 
-star(11, 4);
+draw_points(10000)
+    (stack_frac(1 / 5,
+                test_curve,
+                stack_frac(1 / 2, test_curve, test_curve)));
 
-// Q3
-
-const wheel =
-    (n) => 
-    connect_results(n * 3,
-                    k => { const v = 3 * math_round((k - 1) / 3);
-                           return k % 3 === 1 ? v + (3 *n/2) : v; }
-        );
-
-wheel(100);
-
-// Q4
-
-const connect_laps =
-    (n, g) =>
-    connect_results(n * 3,
-                    k => { const v = math_round((k -1) / 3);
-                           return k % 3 === 1 ? g(v)*3: v * 3; }
-                   );
-
-const draw_times_table =
-    (n,m) => connect_laps(n,k=>(m*k));
-
-    
-draw_times_table(395,100);   
