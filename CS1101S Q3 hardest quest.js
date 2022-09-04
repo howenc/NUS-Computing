@@ -71,7 +71,7 @@ const three_repeater = f => x => f(two_repeater, () => two_repeater(f)(x));
 
 const to_int = repeater => repeater((iter_count, x) => x() + 1)(0);
 
-const increment_repeater = repeater =>
+const increment_repeater1 = repeater =>
                             f => x => f(repeater, () => repeater(f)(x));
                                                   
 const add_repeaters = (currentrepeater, addonrepeater) => 
