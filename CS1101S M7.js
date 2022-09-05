@@ -33,11 +33,11 @@ function two_consecutively(s1, s2) {
                       ,durations1+durations2);
 }
 
-const my_sine_1 = sine_sound(500, 1);
-const my_sine_2 = sine_sound(750, 2);
+const my_sine_1v1 = sine_sound(500, 1);
+const my_sine_2v1 = sine_sound(750, 2);
 
 // Play test sound.
-play(two_consecutively(my_sine_1, my_sine_2));
+play(two_consecutively(my_sine_1v1, my_sine_2v1));
 
 // Q4
 
@@ -46,7 +46,8 @@ function consecutively(list_of_sounds) {
     ? silence_sound(0)
     : two_consecutively(head(list_of_sounds),consecutively(tail(list_of_sounds)));
 }
-
+const my_sine_1 = sine_sound(500, 0.5);
+const my_sine_2 = sine_sound(750, 1);
 const my_sine_3 = sine_sound(625, 0.5);
 
 play(consecutively(list(my_sine_1, my_sine_2, my_sine_3)));
