@@ -1,15 +1,36 @@
-// Q1
-
-function every_second_helper(lst,index) {
+function listindexeven(store,lst) {
     return is_null(lst)
-        ? lst    
-        : index % 2 === 0
-            ? head(lst)
-            : pair(head(lst),every_second_helper(tail(tail(lst)), index-2))
-;    
+    ? lst
+    : length(lst) % 2 === 1
+        ? listindexeven(head(lst),tail(lst))
+        : pair(head(lst),listindexeven(head(lst),tail(lst))); 
 }
 
-every_second_helper(list(1,2,3,4,5),1);
+display(listindexeven(0,list(0,1,2,3,4,5,6,7,8,9)));
+
+function listindexodd(store,lst) {
+    return is_null(lst)
+    ? lst
+    : length(lst) % 2 === 0
+        ? listindexodd(head(lst),tail(lst))
+        : pair(head(lst),listindexodd(head(lst),tail(lst))); 
+}
+
+display(listindexodd(0,list(0,1,2,3,4,5,6,7,8,9)));
+
+function sum(lst) {
+    return is_null(lst)
+    ? 0
+    : head(lst) + sum(tail(lst));
+}
+sum(listindexodd(0,list(0,1,2,3,4,5,6,7,8,9)));
+sum(listindexeven(0,list(0,1,2,3,4,5,6,7,8,9)));
+
+
+/*
+
+Other Solutions
+
 function every_second_helper(lst, count) {
    return is_null(lst)
         ? lst
@@ -38,10 +59,10 @@ function sums(lst) {
 }
 
 sums(list(1, 2, 3, 4, 5));
-Value: [9, [6, null]]
+//Value: [9, [6, null]]
 
 
-function every_second(list){
+function every_second1(list){
     return is_null(list) || is_null(tail(list)) 
     ? null 
     : pair(list_ref(list,1), every_second(tail(tail(list))));
@@ -96,3 +117,7 @@ function every_first(list){
 
 
 // sums(list(2,1,4,3,6));
+
+*/
+
+
