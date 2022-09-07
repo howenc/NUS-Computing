@@ -25,3 +25,23 @@ function reversebetter(xs) {
     }
     return rev(xs, null);
 }
+
+// Accumulate
+
+function accumulate(f,initial,xs) {
+    return is_null(xs)
+        ? initial
+        : f(head(xs),accumulate(f,initial,tail(xs)));
+}
+
+// traverse
+
+function traverse(xs) {
+    // Modify this function to work on trees.
+    if (is_null(xs)) {
+        return null;
+    } else {
+        is_list(head(xs)) ? traverse(head(xs)) : display(head(xs));
+        return traverse(tail(xs));
+    }
+}
