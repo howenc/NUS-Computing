@@ -45,3 +45,12 @@ function traverse(xs) {
         return traverse(tail(xs));
     }
 }
+
+function accumulate_for_tree(f,initial,xs) {
+    if (is_null(xs)) {
+        return initial;
+    } else {
+        is_list(head(xs)) ? accumulate_for_tree(f,initial,head(xs)) : f(head(xs),initial);
+        return accumulate_for_tree(f,initial,tail(xs));
+    }
+}
