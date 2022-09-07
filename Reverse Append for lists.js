@@ -47,11 +47,9 @@ function traverse(xs) {
 }
 
 function flatten_tree(xs) {
-    return is_null(xs)
-        ? null
-        : is_list(head(xs))
-            ? accumulate(head(xs),null,tail(xs))
-            : pair(head(xs),flatten_tree(tail(xs)));
+    return is_list(head(xs))
+        ? accumulate((x,y)=>append(x,y),null,xs)
+        : pair(head(xs) , flatten_tree(tail(xs)));
 }
 
 function count_data_items(tree) {
@@ -84,5 +82,6 @@ function accumulate_for_tree(f,initial,tree) {
 }
 
 const my_tree = list(1,list(2,list(3,4),5),list(6,7));
-
+const LoL = list(list(1,2),list(3,4,5,6),null,list(7,8,9));
 accumulate_for_tree((x,y)=>x+y,0,my_tree);
+flatten_tree(my_tree);
