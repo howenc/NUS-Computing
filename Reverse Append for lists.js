@@ -46,6 +46,23 @@ function traverse(xs) {
     }
 }
 
+// map
+
+function map(f,xs) {
+    return is_null(xs)
+        ? null
+        : pair(f(head(xs)),map(f,tail(xs)));
+}
+
+function map_tree(f,tree) {
+    return is_null(tree)
+        ? 0
+        : pair( is_list(head(tree))
+            ? map_tree(f,head(tree))
+            : f(head(tree))
+            , map_tree(f,tail(tree)));
+}
+
 function flatten_tree(xs) {
     return is_list(head(xs))
         ? accumulate((x,y)=>append(x,y),null,xs)
@@ -84,9 +101,9 @@ function accumulate_for_tree(f,initial,tree) {
 function acc(f,initial,tree,c) {
     return is_null(tree)
     ? c(initial)
-    : acc(f,initial,tail(tree),x=>c(f((is_list(head(tree)))
+    : acc(f,initial,tail(tree),x=>c(f(((is_list(head(tree)))
                                     ? acc(f,initial,head(tree),c)
-                                    : head(tree),
+                                    : head(tree)),
                                     acc(f,initial,tail(tree),c)))); 
 }
 
@@ -95,7 +112,7 @@ function accumulate_for_tree_iter(f,initial,tree) {
 }
 
 function accumulate_tree(f,op,initial,tree) {
-    return accumulate((op)(f,f),initial,tree);
+    return accumulate((op),initial,map(f,tree));
 }
 
 function accumulate(f,initial,xs) {
@@ -106,5 +123,8 @@ function accumulate(f,initial,xs) {
 
 const my_tree = list(1,list(2,list(3,4),5),list(6,7));
 const LoL = list(list(1,2),list(3,4,5,6),null,list(7,8,9));
+const lit = list(1,2,3,4,5,6,7,8,9);
 //accumulate_tree(x=>1,(x,y)=>x+y,0,flatten_tree(LoL));
-accumulate_for_tree_iter((x,y)=>x+y,0,my_tree);
+//accumulate_for_tree(((x,y)=>x+y,0,my_tree);
+
+map_tree(x=>x*x,my_tree);
