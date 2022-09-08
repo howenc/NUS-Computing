@@ -83,7 +83,7 @@ function flatten_tree_better(xs) {
         ? null
             : is_list(head(xs))
                 ? accumulate((x,y)=>append(x,y),null,xs)
-                : pair(head(xs),flatten_tree_better(tail(xs)));
+                : append(list(head(xs)),flatten_tree_better(tail(xs)));
 }
 
 function count_data_items(tree) {
@@ -127,6 +127,6 @@ const my_tree = list(1,list(2,list(3,4),5),list(6,7));
 const LoL = list(list(1,2),list(3,4,5,6),null,list(7,8,9));
 const lit = list(1,2,3,4,5,6,7,8,9);
 //accumulate_tree(x=>1,(x,y)=>x+y,0,flatten_tree(LoL));
-
-flatten_tree_better(flatten_tree(my_tree));
-
+display(my_tree);
+display(flatten_tree_better(my_tree));
+flatten_tree_better(flatten_tree_better(my_tree));
