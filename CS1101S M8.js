@@ -1,74 +1,62 @@
-import {make_sound,play, get_duration,silence_sound} from "sound";
+import {make_sound,play, get_duration,silence_sound,sine_sound,simultaneously,consecutively} from "sound";
 
 // Q1
 
-function noise_sound(duration) {
-    const wave = t => math_random() * 2 - 1;
-    return make_sound(wave, duration);
+function get_dtmf_frequencies(number) {
+     const row = number === 1 || number === 2 || number === 3 || number === 12 
+                    ? 697 
+            : number === 4 || number === 5 || number === 6 || number === 13
+                    ? 770
+            : number === 7 || number === 8 || number === 9 || number === 14
+                    ? 852
+            : number === 10 || number === 0 || number === 11 || number === 15
+                    ? 941
+                    : 0;
+    const col = number === 1 || number === 4 || number === 7 || number === 10 
+                    ? 1209
+            : number === 2 || number === 5 || number === 8 || number === 0
+                    ? 1336
+            : number === 3 || number === 6 || number === 9 || number === 11
+                    ? 1477
+            : number === 12 || number === 13 || number === 14 || number === 15
+                    ? 1633
+                    : 0;
+    return pair(row,col);
 }
-
-function cut_sound(sound, duration) {
-     return make_sound(head(sound),duration);
-}
-
-play(cut_sound(noise_sound(2), 1));
 
 // Q2
 
-function sine_sound(freq, duration) {
-    return make_sound(t => math_sin(2*math_PI*freq*t),duration);
+function make_dtmf_tone(frequency_pair) {
+    const headsound = sine_sound(head(frequency_pair),0.5);
+    const tailsound = sine_sound(tail(frequency_pair),0.5);
+    return simultaneously(list(headsound,tailsound));
 }
-
-play(sine_sound(500, 1));
 
 // Q3
 
-function two_consecutively(s1, s2) {
-    const durations1 = get_duration(s1);
-    const durations2 = get_duration(s2);
-    return make_sound((timer => 
-                            timer < durations1 
-                            ? head(s1)(timer) 
-                            : head(s2)(timer-durations1))
-                      ,durations1+durations2);
+function dial(list_of_digits) {
+    const list_of_frequency_pair = map(get_dtmf_frequencies,list_of_digits);
+    const list_of_frequency_sound = map(make_dtmf_tone,list_of_frequency_pair);
+    return consecutively(list_of_frequency_sound);
 }
-
-const my_sine_1v1 = sine_sound(500, 1);
-const my_sine_2v1 = sine_sound(750, 2);
-
-// Play test sound.
-play(two_consecutively(my_sine_1v1, my_sine_2v1));
 
 // Q4
-
-function consecutively(list_of_sounds) {
-    return is_null(list_of_sounds)
-    ? silence_sound(0)
-    : two_consecutively(head(list_of_sounds),consecutively(tail(list_of_sounds)));
+function is_this_list_black_listed(lst) {
+    return list_to_string(lst) === list_to_string(list(1,8,0,0,5,2,1,1,9,8,0))
+        ? false
+        : true;
 }
-const my_sine_1 = sine_sound(500, 0.5);
-const my_sine_2 = sine_sound(750, 1);
-const my_sine_3 = sine_sound(625, 0.5);
 
-play(consecutively(list(my_sine_1, my_sine_2, my_sine_3)));
+function dial_all(list_of_numbers) {
+    const new_list_of_numbers = filter(is_this_list_black_listed,list_of_numbers);
+    const map_dial_to_all = map(dial,new_list_of_numbers);
+    return consecutively(map_dial_to_all);
+}
 
-// Q5
-
-const dot_duration = 0.125;
-const dash_duration = 3 * dot_duration;
-
-// Create dot, dash and pause sounds first.
-const dot_sound = sine_sound(800,dot_duration);
-const dash_sound = sine_sound(800,dash_duration);
-const dot_pause = silence_sound(dot_duration);
-const dash_pause = silence_sound(dash_duration);
-
-// Create sounds for each letter.
-const S_sound = consecutively(list(dot_sound,dot_pause,dot_sound,dot_pause,dot_sound));
-const O_sound = consecutively(list(dash_sound,dot_pause,dash_sound,dot_pause,dash_sound));
-
-// Build the signal out of letter sounds and pauses.
-const distress_signal = consecutively(list(S_sound,dash_pause,O_sound,dash_pause,S_sound));
-
-// Play distress signal.
-play(distress_signal);
+// Test
+ play(dial_all(
+  list(
+      list(1,8,0,0,5,2,1,1,9,8,0),  // not played!!!
+      list(6,2,3,5,8,5,7,7),
+      list(0,0,8,6,1,3,7,7,0,9,5,0,0,6,1))
+  ));
