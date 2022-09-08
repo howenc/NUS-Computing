@@ -59,3 +59,39 @@ function echo(n, d, sound) {
 
 const test_sound = sine_sound(800, 0.5);
 play(echo(2, 0.4, test_sound));
+
+// Q5
+
+function make_alien_jukebox(sound) {
+    return x=>x===0
+        ? play(sound)
+        : x===1
+            ? play(backward(sound))
+            : x === 2
+                ? play(fast_forward(1/2,sound))
+                : x === 3
+                    ? play(make_list_of_sound(3,fast_forward(2,sound)))
+                    :x===4
+                        ? play(echo(4,0.3,backward(sound)))
+                        : 'Please input from 1-4';
+}
+// Press "Run"
+
+// Then test in REPL:
+
+// init_record();
+
+// const erksh_voice = record_for(1, 0.2);
+
+// const j = make_alien_jukebox(erksh_voice());
+
+// j(0);  // plays original recording
+
+// j(1);  // plays it backward
+
+// j(2);  // plays it at half speed
+
+// j(3);  // plays it at double speed, three times in a row
+
+// j(4);  // plays it backward with 4-times echo,
+//        //     with 0.3 seconds echo delay
