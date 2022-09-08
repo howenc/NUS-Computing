@@ -56,7 +56,7 @@ function map(f,xs) {
 
 function map_tree(f,tree) {
     return is_null(tree)
-        ? 0
+        ? null
         : pair( is_list(head(tree))
             ? map_tree(f,head(tree))
             : f(head(tree))
