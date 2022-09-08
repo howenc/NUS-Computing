@@ -73,17 +73,11 @@ function map_tree(f,tree) {
 // flatten a tree by 1
 
 function flatten_tree(xs) {
-    return is_list(head(xs))
-        ? accumulate((x,y)=>append(x,y),null,xs)
-        : pair(head(xs) , flatten_tree(tail(xs)));
-}
-
-function flatten_tree_better(xs) {
     return is_null(xs)
         ? null
-            : is_list(head(xs))
-                ? accumulate((x,y)=>append(x,y),null,xs)
-                : append(list(head(xs)),flatten_tree_better(tail(xs)));
+        : is_list(head(xs))
+            ? append(flatten_tree(head(xs)),flatten_tree(tail(xs)))
+            : append(list(head(xs)) , flatten_tree(tail(xs)));
 }
 
 function count_data_items(tree) {
@@ -120,13 +114,16 @@ function accumulate_for_tree_iter(f,initial,tree) {
 }
 
 function accumulate_tree(f,op,initial,tree) {
-    return accumulate((op),initial,map_tree(f,tree));
+    return accumulate((x,ys)=>op(is_list(x)
+                                ? accumulate_tree(f,op,initial,x)
+                                : f(x)
+                                ,accumulate_tree(f,op,initial,ys)),
+                        initial,tree);
 }
 
 const my_tree = list(1,list(2,list(3,4),5),list(6,7));
 const LoL = list(list(1,2),list(3,4,5,6),null,list(7,8,9));
 const lit = list(1,2,3,4,5,6,7,8,9);
-//accumulate_tree(x=>1,(x,y)=>x+y,0,flatten_tree(LoL));
-display(my_tree);
-display(flatten_tree_better(my_tree));
-flatten_tree_better(flatten_tree_better(my_tree));
+//accumulate((x,y)=>x+y,0,lit);
+//accumulate_tree(x=>1,(x,y)=>x+y,0,my_tree);
+flatten_tree(my_tree);
