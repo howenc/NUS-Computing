@@ -26,3 +26,35 @@ function fast_forward(n, sound) {
     const newduration = get_duration(sound);
     return make_sound(t => (get_wave(sound))(t*n),newduration/n);
 }
+
+// Q4
+
+function echo(n, d, sound) {
+    function repeat(n,d,sound) {
+        return n === -1
+        ? silence_sound(0)
+        : consecutively(list(consecutively(list(silence_sound(d),sound)),repeat(n-1,d,half_amplitude(sound))));
+
+    function cut_sound(sound, duration) {
+        return make_sound(head(sound),duration);
+    }
+
+    function half_amplitude(sound) {
+        const newduration = get_duration(sound);
+        return make_sound(t => (get_wave(sound))(t/2),newduration);
+    }
+    
+    const new_sound_full_duration_and_echo_with_half_amplitude_and_delay_for_first_beep = 
+                                                                                        repeat(n,d,sound);
+    const new_soun_but_backwards = 
+                                backward(new_sound_full_duration_and_echo_with_half_amplitude_and_delay_for_first_beep);
+    const cut_off_the_delay = 
+                            cut_sound(
+                                    new_soun_but_backwards,
+                                    get_duration(new_soun_but_backwards)-d);
+    const new_sound = backward(cut_off_the_delay);
+    return new_sound;
+}
+
+const test_sound = sine_sound(800, 0.5);
+play(echo(2, 0.4, test_sound));
