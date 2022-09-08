@@ -15,8 +15,7 @@ function reverse(lst) {
                 list(head(lst)));
 }
 
-// Reverse the list by storing it in a parameter
-function reversebetter(xs) {
+function reverse_iter(xs) {
     function rev(original, reversed) {
         return is_null(original)
             ? reversed
@@ -26,18 +25,26 @@ function reversebetter(xs) {
     return rev(xs, null);
 }
 
-// Accumulate
-/*
+// Accumulate for list
+
 function accumulate(f,initial,xs) {
     return is_null(xs)
         ? initial
         : f(head(xs),accumulate(f,initial,tail(xs)));
 }
-*/
-// traverse
+
+function accumulate_for_tree(f,initial,tree) {
+    return is_null(tree)
+    ? initial
+    : f( is_list(head(tree))
+        ? accumulate_for_tree(f,initial,head(tree))
+        : head(tree),
+        accumulate_for_tree(f,initial,tail(tree)));
+}
+
+// traverse for list and trees
 
 function traverse(xs) {
-    // Modify this function to work on trees.
     if (is_null(xs)) {
         return null;
     } else {
@@ -63,10 +70,20 @@ function map_tree(f,tree) {
             , map_tree(f,tail(tree)));
 }
 
+// flatten a tree by 1
+
 function flatten_tree(xs) {
     return is_list(head(xs))
         ? accumulate((x,y)=>append(x,y),null,xs)
         : pair(head(xs) , flatten_tree(tail(xs)));
+}
+
+function flatten_tree_better(xs) {
+    return is_null(xs)
+        ? null
+            : is_list(head(xs))
+                ? accumulate((x,y)=>append(x,y),null,xs)
+                : pair(head(xs),flatten_tree_better(tail(xs)));
 }
 
 function count_data_items(tree) {
@@ -89,15 +106,6 @@ function sum_data_items(tree) {
         sum_data_items(tail(tree));
 }
 
-function accumulate_for_tree(f,initial,tree) {
-    return is_null(tree)
-    ? initial
-    : f( is_list(head(tree))
-        ? accumulate_for_tree(f,initial,head(tree))
-        : head(tree),
-        accumulate_for_tree(f,initial,tail(tree)));
-}
-
 function acc(f,initial,tree,c) {
     return is_null(tree)
     ? c(initial)
@@ -115,15 +123,10 @@ function accumulate_tree(f,op,initial,tree) {
     return accumulate((op),initial,map_tree(f,tree));
 }
 
-function accumulate(f,initial,xs) {
-    return is_null(xs)
-        ? initial
-        : f(head(xs),accumulate(f,initial,tail(xs)));
-}
-
 const my_tree = list(1,list(2,list(3,4),5),list(6,7));
 const LoL = list(list(1,2),list(3,4,5,6),null,list(7,8,9));
 const lit = list(1,2,3,4,5,6,7,8,9);
 //accumulate_tree(x=>1,(x,y)=>x+y,0,flatten_tree(LoL));
-//accumulate_for_tree(((x,y)=>x+y,0,my_tree);
+
+flatten_tree_better(flatten_tree(my_tree));
 
