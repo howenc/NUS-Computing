@@ -112,7 +112,7 @@ function accumulate_for_tree_iter(f,initial,tree) {
 }
 
 function accumulate_tree(f,op,initial,tree) {
-    return accumulate((op),initial,map(f,tree));
+    return accumulate((op),initial,map_tree(f,tree));
 }
 
 function accumulate(f,initial,xs) {
@@ -127,4 +127,3 @@ const lit = list(1,2,3,4,5,6,7,8,9);
 //accumulate_tree(x=>1,(x,y)=>x+y,0,flatten_tree(LoL));
 //accumulate_for_tree(((x,y)=>x+y,0,my_tree);
 
-map_tree(x=>x*x,my_tree);
