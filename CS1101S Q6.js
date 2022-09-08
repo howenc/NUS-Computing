@@ -30,11 +30,11 @@ function fast_forward(n, sound) {
 // Q4
 
 function echo(n, d, sound) {
-    function repeat(n,d,sound) {
+    function make_a_list_of_sounds_but_with_things_added_to_it(n,d,sound) {
         return n === -1
         ? silence_sound(0)
-        : consecutively(list(consecutively(list(silence_sound(d),sound)),repeat(n-1,d,half_amplitude(sound))));
-
+        : consecutively(list(consecutively(list(silence_sound(d),sound)),make_a_list_of_sounds_but_with_things_added_to_it(n-1,d,half_amplitude(sound))));
+    }
     function cut_sound(sound, duration) {
         return make_sound(head(sound),duration);
     }
@@ -45,7 +45,7 @@ function echo(n, d, sound) {
     }
     
     const new_sound_full_duration_and_echo_with_half_amplitude_and_delay_for_first_beep = 
-                                                                                        repeat(n,d,sound);
+                                                                                        make_a_list_of_sounds_but_with_things_added_to_it(n,d,sound);
     const new_soun_but_backwards = 
                                 backward(new_sound_full_duration_and_echo_with_half_amplitude_and_delay_for_first_beep);
     const cut_off_the_delay = 
@@ -53,6 +53,7 @@ function echo(n, d, sound) {
                                     new_soun_but_backwards,
                                     get_duration(new_soun_but_backwards)-d);
     const new_sound = backward(cut_off_the_delay);
+    
     return new_sound;
 }
 
