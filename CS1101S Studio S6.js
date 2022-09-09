@@ -2,6 +2,10 @@ import {make_sound,play,adsr, noise_sound, cello, get_duration, bell,silence_sou
 
 // Q1
 
+function my_map(f,xs) {
+    return accumulate((x,y)=>f(x),null,xs);
+}
+/*
 const violin_envelope = adsr(1, 0, 1, 0);
 const drum_envelope = adsr(0.05, 0.95, 0, 0);
 
@@ -186,3 +190,4 @@ play(percussions(0.5,
               my_cello,
               my_bell),
          list(1,2,1,0,3,1,0)));
+*/
