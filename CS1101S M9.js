@@ -26,7 +26,6 @@ play(consecutively(list(snare_drum(50, 0.2), mute(0, 0.2), bass_drum(50, 0.2),
                         mute(0, 0.2),
                         snare_drum(50, 0.2), mute(0, 0.2), bass_drum(50, 0.2))));
 
-
 // Q2
 
 function generate_list_of_note(letter, list_of_interval) {
@@ -145,3 +144,5 @@ display_list(my_simple_rhythm);
 const correct_simple_rhythm = list(1,2,0,1,1,2,0,1,1,3,0,1,3,1,0,3,1,2,0,1,1,
         2,0,1,1,3,0,1,3,1,0,3,1,2,0,1,1,2,0,1,1,3,0,1,3,1,0,3);
 equal(my_simple_rhythm, correct_simple_rhythm);
+
+// Q5
