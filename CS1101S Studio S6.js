@@ -1,5 +1,3 @@
-import {make_sound,play,adsr, noise_sound, cello, get_duration, bell,silence_sound,sine_sound,simultaneously,consecutively} from "sound";
-
 // Q1
 
 function my_map(f,xs) {
@@ -34,4 +32,11 @@ function makeup_ammout(x,coins) {
     }
 }
 
-x-head(coins)
+function nCr(list_of_coins, how_many_coins_are_being_used) {
+    return length(list_of_coins)<how_many_coins_are_being_used // Change this condition.
+           ? null
+           : (r===0) // Change this condition.
+	       ? head(list_of_coins)
+           // Inductive case goes here.
+           : nCr(n-1,how_many_coins_are_being_used-1) + nCr(n-1,how_many_coins_are_being_used);
+}
