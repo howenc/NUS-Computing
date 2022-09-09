@@ -146,3 +146,82 @@ const correct_simple_rhythm = list(1,2,0,1,1,2,0,1,1,3,0,1,3,1,0,3,1,2,0,1,1,
 equal(my_simple_rhythm, correct_simple_rhythm);
 
 // Q5
+
+const drum_envelope = adsr(0.05, 0.95, 0, 0);
+
+function snare_drum(note, duration) {
+    return drum_envelope(noise_sound(duration));
+}
+function mute(note, duration) {
+    return silence_sound(duration);
+}
+
+function list_to_sound(list_of_midi_notes,duration,instrument) {
+    function list_to_sound_helper(lst, duration, instrument) {
+        const new_sound = is_null(lst)
+            ? pair(silence_sound(0),null)
+            : pair(instrument(head(lst),duration),
+                    list_to_sound_helper(tail(lst),
+                                         duration,
+                                         instrument));
+        return new_sound;
+    }
+    return consecutively(list_to_sound_helper(list_of_midi_notes,
+                                              duration,
+                                              instrument));
+}
+function flatten_tree(xs) {
+    return is_null(xs)
+        ? null
+        : is_list(head(xs))
+            ? append(flatten_tree(head(xs)),
+                     flatten_tree(tail(xs)))
+            : append(list(head(xs)),
+                     flatten_tree(tail(xs)));
+}     
+function simplify_rhythm(rhythm) {
+    function repeat(pir) {
+        function repeating(list_to_repeat,n) {
+            return n===0 
+                ? null
+                : pair(list_to_repeat,repeating(list_to_repeat,n-1));
+        }
+        return is_null(pir)
+            ? null
+            : is_pair(pir)
+            ? is_number(tail(pir))
+                ? repeat(repeating(head(pir),tail(pir)))
+                : pair(repeat(head(pir)),repeat(tail(pir)))
+            : pir;
+    }
+    return flatten_tree(repeat(rhythm));
+}
+
+
+
+function percussions(distance, list_of_sounds, rhythm) {
+    function list_of_sound_to_play(list_of_sounds,rhythm,counter) {
+        return counter > length(rhythm)-1
+            ? null
+            : pair(list_ref(list_of_sounds,list_ref(rhythm,counter)),list_of_sound_to_play(list_of_sounds,rhythm,counter+1));
+    }
+    function repeat_this_list(list_of_sounds,n,i,distance) {
+        return n <= 0
+            ? null
+            : pair(consecutively(pair(silence_sound(distance*i),list_of_sounds)),repeat_this_list(list_of_sounds,n-1,i+1,distance));
+    }
+    return simultaneously(repeat_this_list(list_of_sound_to_play(list_of_sounds,rhythm,0),length(rhythm),0,distance));
+}
+
+// Test
+const my_mute_sound = mute(50, 0.7);
+const my_snare_drum = snare_drum(50, 0.7);
+const my_cello = cello(50, 0.7);
+const my_bell = bell(72, 1);
+
+play(percussions(0.5,
+         list(my_mute_sound,
+              my_snare_drum,
+              my_cello,
+              my_bell),
+         list(1,2,1,0,3,1,0)));
