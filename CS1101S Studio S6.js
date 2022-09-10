@@ -63,4 +63,4 @@ function repeat_this_for_tail(remaining_amount,list) {
     return removethenulls(all_the_possible_combinations);
 }
 
-repeat_this_for_tail(100,list(100,50,50,20,20,10,10,10,10,10,10,10,10));
+repeat_this_for_tail(22,list(1,10,5,20,1,5,1,50));
