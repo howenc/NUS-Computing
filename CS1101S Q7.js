@@ -23,6 +23,19 @@ function generate_list_of_note(letter, list_of_interval) {
 
 const pentatonic_list_of_interval = list(2, 2, 3, 2, 3);
 
+function repeat_pattern(n, generate, letter) {
+    return n === 0 ? letter : repeat_pattern(n - 1, generate, generate(letter));
+}
+
+repeat_pattern(1,(x)=>append(pentatonic_list_of_interval,x),pentatonic_list_of_interval);
+
+function list_of_notes(n,letter,interval) {
+    return generate_list_of_note(letter,repeat_pattern(n-1,(x)=>append(interval,x),interval));
+}
+
+list_of_notes(2,'C4',pentatonic_list_of_interval);
+
+/*
 function startofeachlistofnotes(n,list_of_interval,letter) {
     return repeat_pattern(n-1,x=>head(reverse(generate_list_of_note(x,list_of_interval))),head(generate_list_of_note(letter,list_of_interval)));
 }
@@ -47,7 +60,7 @@ function flatten_and_play(list) {
 entire_list_of_sounds('C4',pentatonic_list_of_interval,5,1);
 
 (flatten_tree(entire_list_of_sounds('C4',pentatonic_list_of_interval,2,1)));
-/*
+
 function repeated_scale(note, list_of_interval, n, duration, instrument) {
     
 }
