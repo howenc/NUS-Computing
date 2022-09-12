@@ -74,6 +74,24 @@ function remove_duplicates1(list) {
 }
 remove_duplicates1(list(1,3,4,5,6,7,8,9,0));
 
+
+function contains(lst, x) {
+    return is_null(lst)
+        ? false
+        : head(lst) === x
+            ? true
+            : contains(tail(lst), x);
+}
+
+function remove_duplicates2(lst) {
+    return accumulate(
+        (x, y) => contains(y, x)
+            ? y
+            : pair(x, y),
+        null,
+        lst);
+}
+
 // function remove_duplicates2(list) {
 //     return pair(head(list),remove_duplicates2(accumulate((x,y)=>x!==head(list)?x:y,null,list)));
 // }
@@ -81,7 +99,25 @@ remove_duplicates1(list(1,3,4,5,6,7,8,9,0));
 // Q2 inclass
 
 function subsets(xs) {
-    is_null(xs)
-        ? null
-        : 
+    if (is_null(xs)) {
+        return list(null);
+    } else {
+        const subsets_rest = subsets(tail(xs));
+        const x = head(xs);
+        const has_x = map(s =>pair(x, s), subsets_rest);
+        return append(subsets_rest, has_x);
+    }
+}
+
+function permutations(s) {
+    return is_null(s)
+        ? list(null)
+        : accumulate(
+            append, 
+            null,
+            map(
+                x => map(
+                    p => pair(x, p),
+                    permutations(remove(x, s))),
+                s));
 }
