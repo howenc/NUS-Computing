@@ -28,7 +28,7 @@ function makeup_ammout(x,coins) {
     } else if (x<0 || is_null(coins)) {
         return null;
     } else {
-        x-head(coins)
+        
     }
 }
 */
