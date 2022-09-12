@@ -63,4 +63,43 @@ function repeat_this_for_tail(remaining_amount,list) {
     return removethenulls(all_the_possible_combinations);
 }
 
-repeat_this_for_tail(22,list(1,10,5,20,1,5,1,50));
+//repeat_this_for_tail(22,list(1,10,5,20,1,5,1,50));
+
+
+// Q1 inclass
+
+function remove_duplicates1(list) {
+    return accumulate((x,y)=>is_null(head(pair(is_null(filter(i=> i===x,y))?x:null,y)))?pair(head(y),tail(y)):pair(x,y),null,list);
+}
+
+remove_duplicates1(list(1,1,1,1,1,1,1,1,3,4,5,6,7,8,8,8,8,8,8,8,8,8,9,0));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
