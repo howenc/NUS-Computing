@@ -109,6 +109,8 @@ function subsets(xs) {
     }
 }
 
+// Q3 inclass
+
 function permutations(s) {
     return is_null(s)
         ? list(null)
