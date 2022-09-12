@@ -69,37 +69,19 @@ function repeat_this_for_tail(remaining_amount,list) {
 // Q1 inclass
 
 function remove_duplicates1(list) {
-    return accumulate((x,y)=>is_null(head(pair(is_null(filter(i=> i===x,y))?x:null,y)))?pair(head(y),tail(y)):pair(x,y),null,list);
+    return accumulate((x,y)=>is_null(
+                                    head(pair(is_null(filter(i=> i===x,y))?x:null,y)))?pair(head(y),tail(y)):pair(x,y),null,list);
 }
+remove_duplicates1(list(1,3,4,5,6,7,8,9,0));
 
-remove_duplicates1(list(1,1,1,1,1,1,1,1,3,4,5,6,7,8,8,8,8,8,8,8,8,8,9,0));
+// function remove_duplicates2(list) {
+//     return pair(head(list),remove_duplicates2(accumulate((x,y)=>x!==head(list)?x:y,null,list)));
+// }
 
+// Q2 inclass
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function subsets(xs) {
+    is_null(xs)
+        ? null
+        : 
+}
