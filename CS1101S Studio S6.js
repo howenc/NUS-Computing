@@ -32,7 +32,7 @@ function makeup_ammout(x,coins) {
         
         const combi_B = makeup_ammout(x-head(coins),tail(coins));
         
-        const combi_C = pair(head(coins),combi_B);
+        const combi_C = map(x=>pair(head(coins),x),combi_B);
         
         return append(combi_A,combi_C);
     }
