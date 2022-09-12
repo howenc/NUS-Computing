@@ -21,17 +21,25 @@ length(filter(x=>x===head(list(2,1,1,1,1,1,111)),list(2,1,1,1,1,1,111)))===1;
 remove_duplicates(list(2,1,2,1,1,1,111));
 
 // Q3
-/*
+
 function makeup_ammout(x,coins) {
     if (x===0) {
         return list(null);
     } else if (x<0 || is_null(coins)) {
         return null;
     } else {
+        const combi_A = makeup_ammout(x,tail(coins));
         
+        const combi_B = makeup_ammout(x-head(coins),tail(coins));
+        
+        const combi_C = pair(head(coins),combi_B);
+        
+        return append(combi_A,combi_C);
     }
 }
-*/
+
+makeup_ammout(22,list(1,10,5,20,1,5,1,50));
+/*
 function repeat_this_for_tail(remaining_amount,list) {
     function is_this_a_proper(proper_amount,proper_coins_left) {
         function make_all_even_failures(remaining_amount,remaining_coins_left) {
@@ -62,18 +70,11 @@ function repeat_this_for_tail(remaining_amount,list) {
 
     return removethenulls(all_the_possible_combinations);
 }
-
+*/
 //repeat_this_for_tail(22,list(1,10,5,20,1,5,1,50));
 
 
 // Q1 inclass
-
-function remove_duplicates1(list) {
-    return accumulate((x,y)=>is_null(
-                                    head(pair(is_null(filter(i=> i===x,y))?x:null,y)))?pair(head(y),tail(y)):pair(x,y),null,list);
-}
-remove_duplicates1(list(1,3,4,5,6,7,8,9,0));
-
 
 function contains(lst, x) {
     return is_null(lst)
@@ -91,10 +92,6 @@ function remove_duplicates2(lst) {
         null,
         lst);
 }
-
-// function remove_duplicates2(list) {
-//     return pair(head(list),remove_duplicates2(accumulate((x,y)=>x!==head(list)?x:y,null,list)));
-// }
 
 // Q2 inclass
 
