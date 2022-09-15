@@ -40,28 +40,6 @@ quicksort(my_list);
 
 // selection_sort
 
-// put the first n elements of xs into a list
-function take(xs, n) {
-    return is_null(xs)
-    ? null
-    : n<=0
-        ? null
-        : pair(head(xs),take(tail(xs),n-1));
-}
-
-take(list(1,2,3,4,5,6,7,8,9,10),1);
-// drop the first n elements from list, return rest
-
-function drop(xs, n) {
-    return is_null(xs)
-    ? null
-    : n<=0
-    ? xs
-    : drop(tail(xs),n-1);
-}
-
-drop(list(1,2,3,4,5,6,7,8,9,10),5);
-
 function min(a, b) {
     return a < b ? a : b;
 }
@@ -124,4 +102,57 @@ const xs = list(6, 3, 8, 5, 1, 9, 6, 4, 2, 7);
 insertion_sort_cmp(xs,(x,y)=>x<y);
 insertion_sort_cmp(xs,(x,y)=>y<x);
 insertion_sort_cmp(xs,(x,y)=>false);
+
 // Merge sort
+
+// put the first n elements of xs into a list
+function take(xs, n) {
+    return is_null(xs)
+    ? null
+    : n<=0
+        ? null
+        : pair(head(xs),take(tail(xs),n-1));
+}
+
+take(list(1,2,3,4,5,6,7,8,9,10),1);
+// drop the first n elements from list, return rest
+
+function drop(xs, n) {
+    return is_null(xs)
+    ? null
+    : n<=0
+    ? xs
+    : drop(tail(xs),n-1);
+}
+
+drop(list(1,2,3,4,5,6,7,8,9,10),5);
+
+// half, rounded downwards
+function middle(n) {
+    return math_floor(n / 2);
+}
+
+// merge two sorted lists into one sorted list
+function merge(xs, ys) {
+    if (is_null(xs)) { 
+        return ys;
+    } else if (is_null(ys)) { 
+        return xs;
+    } else {
+        const x = head(xs);
+        const y = head(ys);
+        return x < y
+            ? pair(x, merge(tail(xs), ys))
+            : pair(y, merge(xs, tail(ys)));
+    }
+}
+
+function merge_sort(xs) {
+    if (is_null(xs) || is_null(tail(xs))) {
+        return xs;
+    } else {
+        const mid = middle(length(xs)); 
+        return merge(merge_sort(take(xs, mid)), 
+                     merge_sort(drop(xs, mid)));
+    }
+}
