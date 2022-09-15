@@ -41,7 +41,7 @@ function echo(n, d, sound) {
 
     function half_amplitude(sound) {
         const newduration = get_duration(sound);
-        return make_sound(t => (get_wave(sound))(t/2),newduration);
+        return make_sound(t => (get_wave(sound))(t)/2,newduration);
     }
     
     const new_sound_full_duration_and_echo_with_half_amplitude_and_delay_for_first_beep = 
