@@ -4,7 +4,7 @@ function my_map(f,xs) {
     return accumulate((x,y)=>pair(f(x),y),null,xs);
 }
 
-my_map(x=>x+1,list(1,2,3,4,5));
+//my_map(x=>x+1,list(1,2,3,4,5));
 
 // Q2
 
@@ -16,9 +16,9 @@ function remove_duplicates(lst) {
             : remove_duplicates(tail(lst));
 }
 
-length(filter(x=>x===head(list(2,1,1,1,1,1,111)),list(2,1,1,1,1,1,111)))===1;
+//length(filter(x=>x===head(list(2,1,1,1,1,1,111)),list(2,1,1,1,1,1,111)))===1;
 
-remove_duplicates(list(2,1,2,1,1,1,111));
+//remove_duplicates(list(2,1,2,1,1,1,111));
 
 // Q3
 
@@ -38,7 +38,7 @@ function makeup_ammout(x,coins) {
     }
 }
 
-makeup_ammout(22,list(1,10,5,20,1,5,1,50));
+//makeup_ammout(22,list(1,10,5,20,1,5,1,50));
 /*
 function repeat_this_for_tail(remaining_amount,list) {
     function is_this_a_proper(proper_amount,proper_coins_left) {
@@ -120,3 +120,5 @@ function permutations(s) {
                     permutations(remove(x, s))),
                 s));
 }
+
+permutations(list(1,2,3));
