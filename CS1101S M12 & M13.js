@@ -111,7 +111,7 @@ function move_and_get_distance1() {
     if ((ev3_ultrasonicSensorDistance(sensor)) < 100) {
         ev3_motorStop(leftwheel);
         ev3_motorStop(rightwheel);
-        if (display(math_random())()<0.5) {
+        if (math_random()<0.5) {
             turn_right;
             move_forward_by_10_and_check_again_right();
         } else {
