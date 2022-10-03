@@ -83,8 +83,8 @@ if (ev3_ultrasonicSensorDistance(sensor) < 10) {
     runleft(-100);
     runright(-100);    
 }
-
-Q2 ans
+*/
+//Q2 ans
 function move_and_get_distance1() {
     if (display(ev3_ultrasonicSensorDistance(sensor)) < 200) {
         ev3_motorStop(leftwheel);
@@ -104,5 +104,44 @@ function move_30_cm_back() {
 
 move_and_get_distance1();
 move_30_cm_back();
-*/
 
+//Q3 
+
+function move_and_get_distance1() {
+    if (display(ev3_ultrasonicSensorDistance(sensor)) < 100) {
+        ev3_motorStop(leftwheel);
+        ev3_motorStop(rightwheel);
+        turn_right();
+        move_forward_by_10_and_check_again();
+    } else {
+        runright(0.05);
+        runleft(0.05);
+        move_and_get_distance1();
+    }
+}
+function turn_right() {
+    rotateleft(-1);
+    rotateright(1.1);
+    pause(pause_duration*1.5);
+}
+
+function turn_left() {
+    rotateleft(1);
+    rotateright(-1.1);
+    pause(pause_duration*1.5);
+}
+
+function move_forward_by_10_and_check_again() {
+    runright(2);
+    runleft(2);
+    pause(pause_duration);
+    turn_left();
+    if (display(ev3_ultrasonicSensorDistance(sensor)) < 100) {
+        move_forward_by_10_and_check_again();
+    } else {
+        move_and_get_distance1();
+    }
+}
+
+
+move_and_get_distance1();
