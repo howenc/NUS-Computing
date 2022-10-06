@@ -161,3 +161,7 @@ function move_forward_by_10_and_check_again_left() {
 }
 
 move_and_get_distance1();
+
+// Mission 3
+
+ev3_colorSensor();
