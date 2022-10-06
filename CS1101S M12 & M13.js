@@ -163,5 +163,7 @@ function move_forward_by_10_and_check_again_left() {
 move_and_get_distance1();
 */
 // Mission 3
-
-ev3_colorSensor();
+const colorsensor = ev3_colorSensor();
+display(ev3_colorSensorBlue(colorsensor));
+display(ev3_colorSensorRed(colorsensor));
+display(ev3_colorSensorGreen(colorsensor));
