@@ -87,10 +87,6 @@ function find_gene_end_2(list_of_strand) {
             : helper(list_of_strand,0);
 }
 
-find_gene_end(list("A", "T", "A", "C", "T", "A", "G", 
- "A", "T", "A", "A"));
-
-
 function all_genes(list_of_strand) {
     const temp_1 = find_gene_start(list_of_strand);
     if (is_null(list_of_strand) || is_null(temp_1)) {
@@ -100,8 +96,3 @@ function all_genes(list_of_strand) {
     return pair(head(temp),all_genes(tail(temp)));
 
 }
-
-all_genes(list("T", "A", "T", "G", "C", "A", "T",
- "A", "A", "G", "T", "A", "G", "A",
- "T", "G", "A", "T", "G", "A", "T"));
-// returns list(list("C", "A"), list("A"))
