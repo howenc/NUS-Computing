@@ -245,6 +245,221 @@ function check_parentheses(paren_list) {
     }
     return helper(paren_list);
 }
-const paren_list = list("(", "(", ")", ")");
-check_parentheses(paren_list);
-// returns true
+
+function make_big_int_from_number(num) {
+    if (num * 10 % 10 !== 0) {
+        return 'decimal detected';
+    }
+    let lst = null;
+    function helper(num) {
+        let temp = num % 10;
+        lst = pair(temp,lst);
+        return math_floor(num/10) === 0 
+            ? reverse(lst)
+            : helper(math_floor(num/10));
+    }
+    return helper(num);
+}
+
+function big_int_to_string(bint) {
+    function helper(bints) {
+        return is_null(bints)
+            ? ''
+            : is_null(tail(bints)) && head(bints) === 0
+                ? error('0 detected at the back of the list')
+                : big_int_to_string(tail(bints)) + stringify(head(bints));
+    }
+    return helper(bint);
+}
+
+function big_int_add(bintX, bintY) {
+    let carry_over = 0;
+    let temp = null;
+    function helper(bintx,binty) {
+        if (is_null(bintx) && is_null(binty)) {
+            return temp;
+        } else {
+            bintx = is_null(bintx) ? list(0) : bintx;
+            binty = is_null(binty) ? list(0) : binty;
+        }
+        let sum = head(bintx) + head(binty) + carry_over;
+        if (sum>=10) {
+            carry_over = 1;
+            sum = sum%10;
+        } else {
+            carry_over = 0;
+        }
+        temp = pair(sum,temp);
+        return helper(tail(bintx),tail(binty));
+    }
+    const result = helper(bintX,bintY);
+    if (carry_over === 1) {
+        return reverse(pair(1,result));
+    } else {
+        return reverse(result);
+    }
+}
+
+
+function big_int_mult_by_digit(bintX, bintY) {
+    let carry_over = 0;
+    let temp = null;
+    if (head(reverse(bintX)) === 0) {
+        return 'Invalid big int';
+    }
+    function helper(bintx,binty) {
+        if (is_null(bintx)) {
+            return temp;
+        } else {
+            bintx = is_null(bintx) ? list(0) : bintx;
+        }
+        let sum = (head(bintx) * binty) + carry_over;
+        if (sum>=10) {
+            carry_over = math_floor(sum/10);
+            sum = sum%10;
+        } else {
+            carry_over = 0;
+        }
+        temp = pair(sum,temp);
+        return helper(tail(bintx),binty);
+    }
+    const result = helper(bintX,bintY);
+    if (length(result) === length(filter(x=>x===0,result))) {
+        return list(0);
+    }
+    if (carry_over !== 0) {
+        return reverse(pair(carry_over,result));
+    } else {
+        return reverse(result);
+    }
+}
+
+
+function big_int_mult_by_10_pow_n(bint, n) {
+    return length(bint) === length(filter(x=>x===0,bint))
+            ? list(0)
+            : n === 0
+                ? bint
+                : big_int_mult_by_10_pow_n(pair(0,bint), n-1);
+}
+
+function big_int_mult(bintX, bintY) {
+    let acc = null;
+    function helper(bintx,binty,counter) {
+        if (is_null(binty)) {
+            return accumulate(big_int_add,null,acc);
+        }
+        const temp = big_int_mult_by_10_pow_n(bintx,counter);
+        const temp1 = big_int_mult_by_digit(temp,head(binty));
+
+        acc = pair(temp1,acc);
+        return helper(bintx,tail(binty),counter + 1);
+    }
+    return helper(bintX,bintY,0);
+}
+
+function build_largest_int(digits) {
+    let max_list = [];
+    function max(dig) {
+        let temp = 0;
+        let index = 0;
+        for (let counter = 0; counter < array_length(dig); counter = counter + 1) {
+            for (let i = 0; i < array_length(dig); i = i + 1) {
+                if (dig[i] > temp) {
+                    temp = dig[i];
+                    index = i;
+                }
+            }
+            dig[index] = -1;
+            max_list[counter] = temp;
+            temp = 0;
+        }
+        return max_list;
+    }
+    const result = max(digits);
+    let str = '';
+    for (let j = 0; j < array_length(digits); j = j + 1) {
+        str = str + stringify(max_list[j]);
+    }
+    return str;
+}
+
+function swap(A,i,j) {
+    let temp = A[i];
+    A[i] = A[j];
+    A[j] = temp;
+    return A;
+}
+
+function build_2nd_largest_int(digits) {
+    const l = array_length(digits);
+    let max_list = [];
+    function max(dig) {
+        let temp = 0;
+        let index = 0;
+        for (let counter = 0; counter < l; counter = counter + 1) {
+            for (let i = 0; i < l; i = i + 1) {
+                if (dig[i] > temp) {
+                    temp = dig[i];
+                    index = i;
+                }
+            }
+            dig[index] = -1;
+            max_list[counter] = temp;
+            temp = 0;
+        }
+        return max_list;
+    }
+    const result = max(digits);
+    function helper(l) {
+        if (l-1 === 0) {
+            return result;
+        } else if (result[l-1] !== result[l-2]) {
+            return swap(result,l-1,l-2);
+        } else {
+            return helper(l-1);
+        }
+    }
+    const second = helper(l);
+    let str = '';
+    for (let j = 0; j < array_length(digits); j = j + 1) {
+        str = str + stringify(max_list[j]);
+    }
+    return str;
+}
+
+function build_nth_largest_int(digits,n) {
+    const l = array_length(digits);
+    let max_list = [];
+    function max(dig) {
+        let temp = 0;
+        let index = 0;
+        for (let counter = 0; counter < l; counter = counter + 1) {
+            for (let i = 0; i < l; i = i + 1) {
+                if (dig[i] > temp) {
+                    temp = dig[i];
+                    index = i;
+                }
+            }
+            dig[index] = -1;
+            max_list[counter] = temp;
+            temp = 0;
+        }
+        return max_list;
+    }
+    const result = max(digits);
+    function helper(l) {
+        if (l-1 === 0) {
+            return result;
+        } else if (result[l-1] !== result[l-2]) {
+            return swap(result,l-1,l-2);
+        } else {
+            return helper(l-1);
+        }
+    }
+    
+    const second = helper(l);
+
+    }
+    return str;
+}
