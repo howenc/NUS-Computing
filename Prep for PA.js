@@ -459,7 +459,78 @@ function build_nth_largest_int(digits,n) {
     }
     
     const second = helper(l);
-
-    }
-    return str;
 }
+
+function count_lower_neighbors(emap,r,c) {
+    let arr = [];
+    let counter = 0;
+    if(r === 0 || r === (array_length(emap))-1 || c === 0 || c === array_length(emap[0])) {
+        return 0;
+    }
+        for (let i =-1; i<=1; i = i + 1) {
+            for (let j = -1; j <=1; j = j + 1) {
+                arr[counter] = emap[r+i][c+j];
+                counter = counter + 1;
+            }
+        }
+    let count = 0;
+    for (let i = 0; i < counter; i = i + 1) {
+        if (arr[i] < emap[r][c]) {
+            count = count + 1;
+        }
+    }
+    return count;
+}
+
+function count_peaks(emap) {
+    let count = 0;
+    for (let i = 1; i < array_length(emap)-1; i = i + 1) {
+        for (let j = 1; j < array_length(emap[0])-1; j = j + 1) {
+            if (count_lower_neighbors(emap,i,j) === 8) {
+                count = count + 1;
+            }
+        }
+    }
+    return count;
+}
+
+function count_islands(emap) {
+    for (let i = 0; i < array_length(emap);  i = i + 1) {
+        for (let j = 0; j < array_length(emap[0]); j = j + 1) {
+            if (emap[i][j] > 0) {
+                emap[i][j] = 1;
+            }
+        }
+    }
+    return count_peaks(emap);
+    
+    function count_lower_neighbors_square(emap,r,c) {
+        let arr = [];
+        let counter = 0;
+        if(r === 0 || r === (array_length(emap))-1 || c === 0 || c === array_length(emap[0])) {
+            return 0;
+        }
+            for (let i =-1; i<=1; i = i + 1) {
+                for (let j = -1; j <=1; j = j + 1) {
+                    arr[counter] = emap[r+i][c+j];
+                    counter = counter + 1;
+                }
+            }
+        let count = 0;
+        for (let i = 0; i < counter; i = i + 1) {
+            if (arr[i] < emap[r][c]) {
+                count = count + 1;
+            }
+        }
+        return count;
+    }
+}
+
+const emap = [[3, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 2, 3, 1],
+            [1, 0, 3, 2, 1, 1, 0],
+            [1, 1, 1, 1, 3, 1, 1],
+            [1, 2, 1, 1, 3, 1, 3],
+            [1, 1, 1, 1, 4, 1, 1]];
+            
+count_islands(emap);
