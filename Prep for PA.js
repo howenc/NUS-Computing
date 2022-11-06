@@ -111,7 +111,7 @@ function all_different(nums) {
 function is_valid_toto_set(nums, n, min, max) {
     if (n !== length(nums)) {
         return false;
-    } else if (!is_null(filter(x=>x<=min,nums)) || !is_null(filter(x=>x>=max,nums))) {
+    } else if (!is_null(filter(x=>x<min,nums)) || !is_null(filter(x=>x>max,nums))) {
         return false;
     } else {
         return all_different(nums);
