@@ -428,38 +428,25 @@ function build_2nd_largest_int(digits) {
     return str;
 }
 
-function build_nth_largest_int(digits,n) {
-    const l = array_length(digits);
-    let max_list = [];
-    function max(dig) {
-        let temp = 0;
-        let index = 0;
-        for (let counter = 0; counter < l; counter = counter + 1) {
-            for (let i = 0; i < l; i = i + 1) {
-                if (dig[i] > temp) {
-                    temp = dig[i];
-                    index = i;
-                }
-            }
-            dig[index] = -1;
-            max_list[counter] = temp;
-            temp = 0;
-        }
-        return max_list;
+function build_nth_largest_int(digits, n) {
+    function permutations(ys) {
+        return is_null(ys)
+            ? list(null)
+            : accumulate(append, null,
+                map(x => map(p => pair(x, p),
+                             permutations(remove(x, ys))),
+                    ys));
     }
-    const result = max(digits);
-    function helper(l) {
-        if (l-1 === 0) {
-            return result;
-        } else if (result[l-1] !== result[l-2]) {
-            return swap(result,l-1,l-2);
-        } else {
-            return helper(l-1);
-        }
-    }
-    
-    const second = helper(l);
-}
+
+    const S = copy_array(digits);
+    const len = array_length(S);
+    sort_ascending(S);
+    reverse_array(S);
+    const digit_lst = array_to_list(S);
+    const perms = permutations(digit_lst);
+    const nth_lst = list_ref(perms, math_min(length(perms), n) - 1);
+    const nth = list_to_array(nth_lst);
+    return digits_to_string(nth);
 
 function count_lower_neighbors(emap,r,c) {
     let arr = [];
