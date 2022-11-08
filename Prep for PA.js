@@ -53,10 +53,14 @@ function mergesortarray(arr) {
 
 
 function mediansortedarrays(arr1,arr2) {
-    
+    let new_arr = mergearray(arr1,arr2);
+    const n = array_length(new_arr);
+    if (n%2 === 0) {
+        return (new_arr[math_floor(n/2)-1] + new_arr[math_floor(n/2)]) / 2;
+    } else {
+        return new_arr[math_floor(n/2)];
+    }
 }
-
-
 
 function is_nucleobase(string) {
     return string === 'A' || string === 'C' || string === 'G' || string === 'T';
