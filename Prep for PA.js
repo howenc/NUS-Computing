@@ -1,5 +1,35 @@
 // prep for PA
 
+function mergearray(arr1,arr2) {
+    let n = math_min(array_length(arr1),array_length(arr2));
+    let m = math_max(array_length(arr1),array_length(arr2));
+    let temp = [];
+    let arr1_counter = 0;
+    let arr2_counter = 0;
+    for (let i = 0; i<n+m; i = i + 1) {
+        if (arr1[arr1_counter] < arr2[arr2_counter]) {
+            temp[i] = arr1[arr1_counter];
+            arr1_counter = arr1_counter + 1;
+        } else {
+            temp[i] = arr2[arr2_counter];
+            arr2_counter = arr2_counter + 1;
+        }
+    }
+    return temp;
+}
+
+function mergesortarray(arr) {
+    
+}
+
+mergesortarray([1,2,3,4],[5,6,7,8]);
+
+function mediansortedarrays(arr1,arr2) {
+    
+}
+
+
+
 function is_nucleobase(string) {
     return string === 'A' || string === 'C' || string === 'G' || string === 'T';
 }
@@ -428,6 +458,29 @@ function build_2nd_largest_int(digits) {
     return str;
 }
 
+function copy_array(arr) {
+    const n = array_length(arr);
+    let temp = [];
+    for (let i = 0; i < n; i = i + 1) {
+        temp[i] = arr[i];
+    }
+    return temp;
+}
+
+function sort_ascending(S) {
+    return mergesortarray(S);
+}
+
+function reverse_array(S) {
+    let n = array_length(S);
+    for (let i = 0; i < n/2; i = i + 1) {
+        swap(S,i,n-1-i);
+    }
+    return S;
+}
+
+function array
+
 function build_nth_largest_int(digits, n) {
     function permutations(ys) {
         return is_null(ys)
@@ -447,6 +500,7 @@ function build_nth_largest_int(digits, n) {
     const nth_lst = list_ref(perms, math_min(length(perms), n) - 1);
     const nth = list_to_array(nth_lst);
     return digits_to_string(nth);
+}
 
 function count_lower_neighbors(emap,r,c) {
     let arr = [];
