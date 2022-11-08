@@ -61,6 +61,48 @@ function mediansortedarrays(arr1,arr2) {
     }
 }
 
+function longestsubstring(S) {
+    function string_to_list(s) {
+        let i = 0;
+        let lst = null;
+        while (!is_undefined(char_at(s,i))) {
+            lst = pair(char_at(s,i),lst);
+            i = i + 1;
+        }
+        return reverse(lst);
+    }
+    const list = string_to_list(S);
+    const n = length(list);
+    function longestsubstringforthatcharacter(s) {
+        function helper(str) {
+            if (is_null(s) || is_null(tail(s))) {
+                return 0;
+            }
+            let i = 1;
+            while (head(str) !== head(s)) {
+                if (is_null(tail(str))) {
+                    return 0;
+                }
+                str = tail(str);
+                i = i + 1;
+                if (is_null(tail(str)) && head(str) !== head(s)) {
+                    return 0;
+                }
+            }
+            return i;
+        }
+        return helper(tail(s));
+    }
+
+    let longest = 0;
+    for (let i = list; !is_null(tail(i)); i = tail(i)) {
+         if(longestsubstringforthatcharacter(i) > longest) {
+             longest = longestsubstringforthatcharacter(i);
+         }
+    }
+    return longest;
+}
+
 function is_nucleobase(string) {
     return string === 'A' || string === 'C' || string === 'G' || string === 'T';
 }
