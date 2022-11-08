@@ -1,12 +1,11 @@
 // prep for PA
 
 function mergearray(arr1,arr2) {
-    let n = math_min(array_length(arr1),array_length(arr2));
-    let m = math_max(array_length(arr1),array_length(arr2));
+    let n = array_length(arr1) + array_length(arr2);
     let temp = [];
     let arr1_counter = 0;
     let arr2_counter = 0;
-    for (let i = 0; i<n+m; i = i + 1) {
+    for (let i = 0; i<n; i = i + 1) {
         if (is_undefined(arr1[arr1_counter])) {
             temp[i] = arr2[arr2_counter];
             arr2_counter = arr2_counter + 1;
@@ -503,6 +502,23 @@ function sort_ascending(S) {
     return mergesortarray(S);
 }
 
+function map_array(func,arr) {
+    const n = array_length(arr);
+    for (let i = 0; i < n; i = i + 1) {
+        arr[i] = func(arr[i]);
+    }
+    return arr;
+}
+
+function accumulate_array(func,initial,arr) {
+    const n = array_length(arr);
+    let acc = initial;
+    for (let i = 0; i < n; i = i + 1) {
+        acc = func(arr[i],acc);
+    }
+    return acc;
+}
+
 function reverse_array(S) {
     let n = array_length(S);
     for (let i = 0; i < n/2; i = i + 1) {
@@ -525,6 +541,7 @@ function list_to_array(lst) {
     let counter = 0;
     for (let i = lst; !is_null(i); i = tail(i)) {
         arr[counter] = head(i);
+        counter = counter + 1;
     }
     return arr;
 }
