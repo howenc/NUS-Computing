@@ -7,7 +7,13 @@ function mergearray(arr1,arr2) {
     let arr1_counter = 0;
     let arr2_counter = 0;
     for (let i = 0; i<n+m; i = i + 1) {
-        if (arr1[arr1_counter] < arr2[arr2_counter]) {
+        if (is_undefined(arr1[arr1_counter])) {
+            temp[i] = arr2[arr2_counter];
+            arr2_counter = arr2_counter + 1;
+        } else if (is_undefined(arr2[arr2_counter])) {
+            temp[i] = arr1[arr1_counter];
+            arr1_counter = arr1_counter + 1;
+        } else if (arr1[arr1_counter] < arr2[arr2_counter]) {
             temp[i] = arr1[arr1_counter];
             arr1_counter = arr1_counter + 1;
         } else {
@@ -22,7 +28,7 @@ function mergesortarray(arr) {
     
 }
 
-mergesortarray([1,2,3,4],[5,6,7,8]);
+mergearray([1,4,6,7],[2,3,5,8]);
 
 function mediansortedarrays(arr1,arr2) {
     
@@ -479,7 +485,36 @@ function reverse_array(S) {
     return S;
 }
 
-function array
+function array_to_list(arr) {
+    let lst = null;
+    const n = array_length(arr);
+    for (let i = 0; i < n; i = i + 1) {
+        lst = pair(arr[i],lst);
+    }
+    return reverse(lst);
+}
+
+function list_to_array(lst) {
+    let arr = [];
+    let counter = 0;
+    for (let i = lst; !is_null(i); i = tail(i)) {
+        arr[counter] = head(i);
+    }
+    return arr;
+}
+
+function digits_to_string(digits) {
+    return array_to_string(digits);
+}
+
+function array_to_string(arr) {
+    const n = array_length(arr);
+    let str = '';
+    for (let i = 0; i < n; i = i + 1) {
+        str = str + stringify(arr[i]);
+    }
+    return str;
+}
 
 function build_nth_largest_int(digits, n) {
     function permutations(ys) {
