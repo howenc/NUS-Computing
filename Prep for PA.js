@@ -103,6 +103,33 @@ function longestsubstring(S) {
     return longest;
 }
 
+function queue() {
+    const queuearr = [];
+    const size = 5;
+    function enqueue(x) {
+        for ( let i = 0; i < size; i = i + 1) {
+            if (is_undefined(queuearr[i]) && i < size) {
+                queuearr[i] = x;
+                break;
+            }
+        }
+    }
+    
+    function dequeue() {
+        for (let i = 1; i < array_length(queuearr); i = i + 1) {
+            queuearr[i-1] = queuearr[i];
+            if (i + 1 >= array_length(queuearr) || is_undefined(queuearr[i+1])) {
+                queuearr[i] = undefined;
+            }
+        }
+    }
+    
+    function peek(p) {
+        return queuearr[p];
+    }
+    return queuearr;
+}
+
 function is_nucleobase(string) {
     return string === 'A' || string === 'C' || string === 'G' || string === 'T';
 }
