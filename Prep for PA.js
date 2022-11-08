@@ -588,6 +588,15 @@ function accumulate_array(func,initial,arr) {
     return acc;
 }
 
+function accumulate_array_back(func, initial, arr) {
+    const n = array_length(arr);
+    let acc = initial;
+    for (let i = n - 1; i >= 0; i = i - 1) {
+        acc = func(arr[i], acc);
+    }
+    return acc;
+}
+
 function reverse_array(S) {
     let n = array_length(S);
     for (let i = 0; i < n/2; i = i + 1) {
