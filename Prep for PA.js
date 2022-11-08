@@ -73,25 +73,25 @@ function longestsubstring(S) {
     }
     const list = string_to_list(S);
     const n = length(list);
-    function longestsubstringforthatcharacter(s) {
-        function helper(str) {
-            if (is_null(s) || is_null(tail(s))) {
+    function longestsubstringforthatcharacter(lst) {
+        function helper(lsts) {
+            if (is_null(lst) || is_null(tail(lst))) {
                 return 0;
             }
             let i = 1;
-            while (head(str) !== head(s)) {
-                if (is_null(tail(str))) {
+            while (head(lsts) !== head(lst)) {
+                if (is_null(tail(lsts))) {
                     return 0;
                 }
-                str = tail(str);
+                lsts = tail(lsts);
                 i = i + 1;
-                if (is_null(tail(str)) && head(str) !== head(s)) {
+                if (is_null(tail(lsts)) && head(lsts) !== head(lst)) {
                     return 0;
                 }
             }
             return i;
         }
-        return helper(tail(s));
+        return helper(tail(lst));
     }
 
     let longest = 0;
