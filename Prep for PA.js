@@ -24,11 +24,33 @@ function mergearray(arr1,arr2) {
     return temp;
 }
 
-function mergesortarray(arr) {
-    
+function splitarray(arr) {
+    const n = array_length(arr);
+    let front = [];
+    let back = [];
+    let counter = 0;
+    for (let i = 0; i < n/2; i = i + 1) {
+        front[i] = arr[i];
+    }
+    for (let i = math_ceil(n/2); i < n; i = i + 1) {
+        back[counter] = arr[i];
+        counter = counter + 1;
+    }
+    return pair(front,back);
 }
 
-mergearray([1,4,6,7],[2,3,5,8]);
+function mergesortarray(arr) {
+    const left = x => head(splitarray(x));
+    const right = x => tail(splitarray(x));
+    if (array_length(arr) === 1) {
+        return arr;
+    } else {
+        const first_half = left(arr);
+        const second_half = right(arr);
+        return mergearray(mergesortarray(first_half),mergesortarray(second_half));
+    }
+}
+
 
 function mediansortedarrays(arr1,arr2) {
     
