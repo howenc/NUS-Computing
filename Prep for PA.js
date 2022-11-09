@@ -1,5 +1,106 @@
 // prep for PA
 
+function string_length(str) {
+    let i = 0; 
+    while (!is_undefined(char_at(str,i))) {
+        i = i + 1;
+    }
+    return i;
+}
+
+function is_palindromic(str) {
+    const n = string_length(str);
+    for (let i = 0; i < n/2; i = i + 1) {
+        if (char_at(str,i) !== char_at(str,n-1-i)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function repeat_first_char(str) {
+    let temp = char_at(str,0);
+    let i = 1;
+    while (!is_undefined(char_at(str,i))) {
+        if (char_at(str,i) === temp) {
+            let acc = '';
+            for (let j = 0; j <= i; j = j + 1) {
+                acc = acc + char_at(str,j);
+            }
+            return acc;
+        }
+        i = i + 1;
+    }
+    return null;
+}
+
+function all_substring_with_repeated_first_char(str) {
+    let temp = char_at(str,0);
+    let i = 1;
+    let lst = list(temp);
+    while (!is_undefined(char_at(str,i))) {
+        if (char_at(str,i) === temp) {
+            let acc = '';
+            for (let j = 0; j <= i; j = j + 1) {
+                acc = acc + char_at(str,j);
+            }
+            lst = pair(acc,lst);
+        }
+        i = i + 1;
+    }
+    return lst;
+}
+
+
+function one_less_char(str) {
+    let new_string = '';
+    for (let i = 1; !is_undefined(char_at(str,i)); i = i + 1) {
+        new_string = new_string + char_at(str,i);
+    }
+    return new_string;
+}
+
+function longest_palindromic_substring(s) {
+    let aplst = null;
+    function longestpalindromicsubstring(str) {
+        if (string_length(str) === 0) {
+            return aplst;
+        }
+        let lst = all_substring_with_repeated_first_char(str);
+        lst = map(x=>pair(is_palindromic(x),x),lst);
+        lst = filter(x=>(head(x)),lst);
+        aplst = append(lst,aplst);
+        return longestpalindromicsubstring(one_less_char(str));
+    }
+    let result = longestpalindromicsubstring(s);
+    result = accumulate( (x,y) => (head(x) ? pair(tail(x),y) : y), null, result);
+    let len = 0;
+    let string = '';
+    while (!is_null(result)) {
+        if (len < string_length(head(result))) {
+            len = string_length(head(result));
+            string = head(result);
+        }
+        result = tail(result);
+    }
+    return string;
+}
+
+function bubblesort_list(L) {
+    const len = length(L);
+    for (let i = len - 1; i >= 1; i = i - 1) {
+        let p = L;
+        for (let j = 0; j < i; j = j + 1) {
+            if (head(p) > head(tail(p))) {
+                const temp = head(p);
+                set_head(p, head(tail(p)));
+                set_head(tail(p), temp);
+            }
+            p = tail(p);
+        }
+    }
+}
+
 function mergearray(arr1,arr2) {
     let n = array_length(arr1) + array_length(arr2);
     let temp = [];
