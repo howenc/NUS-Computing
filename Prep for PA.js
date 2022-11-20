@@ -1,5 +1,24 @@
 // prep for PA
 
+// longest palindromic substring (read the same forwards and backwards)
+
+function are_equal_sets(set1, set2) {
+    if (length(set1) !== length(set2)) {
+    return false;
+        } else {
+    return accumulate(
+        (x1, y1) => accumulate(
+            (x2, y2) => x1 === x2 || y2,
+                false, set2) && y1,
+                    true, set1);
+ }
+}
+
+accumulate((x1, y1) => 1 === x1 && y1, false, list(1,2,3,4,5));
+accumulate((x2, y2) => 1 === x2 || y2, false, list(1,2,3,4,5));
+// if true for 1 return true
+//are_equal_sets(list(1,2,3,4,5),list(6,7,8,9,10));
+
 function string_length(str) {
     let i = 0; 
     while (!is_undefined(char_at(str,i))) {
